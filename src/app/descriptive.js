@@ -1,8 +1,7 @@
 const React = require("react");
-const propTypes = require('prop-types');
+const PropTypes = require('prop-types');
 const { makeStyles, useTheme } = require('@material-ui/core/styles');
 
-const Card = require('@material-ui/core/Card').default;
 const CardActions = require('@material-ui/core/CardActions').default;
 const CardContent = require('@material-ui/core/CardContent').default;
 const Typography = require('@material-ui/core/Typography').default;
@@ -18,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-function descriptive({ questionIndex, content, ...props }) {
+function Descriptive({ data, updateResponse, index }) {
     const classes = useStyles();
     const theme = useTheme();
 
@@ -26,13 +25,15 @@ function descriptive({ questionIndex, content, ...props }) {
         <>
             <CardContent>
                 <Typography>
-                    {questionIndex}. {content}
+                    {index + 1}. {data.content}
                 </Typography>
             </CardContent>
             <CardActions className={classes.cardactions}>
                 <TextField
                     multiline
                     fullWidth
+                    value={data.response}
+                    onChange={updateResponse}
                     className={classes.textField}
                     margin="none"
                     variant="outlined"
@@ -42,4 +43,12 @@ function descriptive({ questionIndex, content, ...props }) {
     );
 }
 
-module.exports = descriptive;
+Descriptive.propTypes = {
+    data: PropTypes.shape({
+        content: PropTypes.string,
+        updateResponse: PropTypes.string
+    }),
+    index: PropTypes.number.isRequired
+}
+
+module.exports = Descriptive;

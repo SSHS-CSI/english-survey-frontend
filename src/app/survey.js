@@ -1,28 +1,52 @@
 const React = require("react");
+const { connect } = require('react-redux');
 const ClassNames = require('classnames');
 const propTypes = require('prop-types');
 const { makeStyles, useTheme } = require('@material-ui/core/styles');
 
 const Card = require('@material-ui/core/Card').default;
 
+const { updateResponse } = require('./actions.js');
 const Objective = require('./objective.js');
 const Descriptive = require('./descriptive.js');
 
 const mapStateToProps = state => {
-    const { template } = state;
-
+    return {
+        data: state.response
+    }
 }
 
-function survey({ template, ...props }) {
+const mapDispatchToProps = dispatch => {
+    return {
+        updateResponse: index => (_, value) => dispatch(updateResponse(value, index))
+    }
+}
+
+function survey({ data, updateResponse }) {
     return (
         <Card>
-            {template.map((item, index) => {
+            {data.map((item, index) => {
                 return (item.type === 'objective') ?
-                <Objective key={ClassNames(item.type, index)} questionIndex={index + 1} content={item.content} selectCount={item.selectCount} />
-                : <Descriptive key={ClassNames(item.type, index)} questionIndex={index + 1} content={item.content} />
+                    <Objective
+                        key={ClassNames(item.type, index)}
+                        data={data[index]}
+                        updateResponse={updateResponse(index)}
+                        index={index}
+                    />
+                    : <Descriptive
+                        key={ClassNames(item.type, index)}
+                        data={data[index]}
+                        updateResponse={updateResponse(index)}
+                        index={index}
+                    />
             })}
         </Card>
     );
 }
 
-module.exports = survey;
+const Survey = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(survey)
+
+module.exports = Survey;

@@ -1,14 +1,23 @@
 const { combineReducers } = require('redux');
-const { UPDATE_RESPONSE, MOVETO_NEXTSTUDENT, MOVETO_PREVSTUDENT, LOGIN, LOGOUT } = require('./actions');
+const { Map } = require('immutable');
+const { UPDATE_RESPONSE, MOVETO_NEXTSTUDENT, MOVETO_PREVSTUDENT, LOGIN, LOGOUT } = require('./actions.js');
 
-function response(state, action) {
+function response(state = null, action) {
     switch(action.type) {
         case UPDATE_RESPONSE:
-            return;
+            return [
+                ...state.slice(0, action.index),
+                Object.assign({}, state[action.index], {
+                    response: action.response
+                }),
+                ...state.slice(action.index + 1)
+            ]
+        default:
+            return state;
     }
 }
 
-function movetoStudent(state = 0, action) {
+function student(state = 0, action) {
     switch(action.type) {
         case MOVETO_NEXTSTUDENT:
             return state + 1;
@@ -19,7 +28,7 @@ function movetoStudent(state = 0, action) {
     }
 }
 
-function access(state = null, action) {
+function account(state = null, action) {
     switch(action.type) {
         case LOGIN:
             return action.id;
@@ -32,8 +41,8 @@ function access(state = null, action) {
 
 const surveyApp = combineReducers({
     response,
-    movetoStudent,
-    access
+    student,
+    account
 });
 
 export default surveyApp;

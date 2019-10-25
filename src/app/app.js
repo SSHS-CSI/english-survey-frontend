@@ -7,26 +7,6 @@ const Survey = require('./survey.js');
 const Sizing = require('@material-ui/system').default;
 const Box = require('@material-ui/core/Box').default;
 
-const template = [
-    {
-        type: 'objective',
-        content: 'hmmmm...?',
-        selectCount: 6
-    },{
-        type: 'objective',
-        content: 'hmmmm...?',
-        selectCount: 6
-    },{
-        type: 'objective',
-        content: 'hmmmm...?',
-        selectCount: 6
-    },
-    {
-        type: 'descriptive',
-        content: 'How do you do?'
-    }
-];
-
 const useStyles = makeStyles(theme => ({
     app: {
         display: 'flex', 
@@ -43,10 +23,7 @@ function App() {
     return (
         <div className={classes.app}>
             <Box className={classes.box} width={0.5}>
-                <Objective questionIndex={1} content="I am tired" selectCount={7} />
-            </Box>
-            <Box className={classes.box} width={0.5}>
-                <Survey template={template} />
+                <Survey />
             </Box>
         </div>
     );

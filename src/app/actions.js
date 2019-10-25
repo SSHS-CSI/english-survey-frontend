@@ -12,11 +12,11 @@ export const LOGOUT = 'LOGOUT';
 ***** 액션 생산자
 */
 
-export function updateResponse(questionIndex, value) {
+export function updateResponse(response, index) {
     return {
         type: UPDATE_RESPONSE,
-        questionIndex: questionIndex,
-        value: value
+        response: response,
+        index: index
     }
 }
 
