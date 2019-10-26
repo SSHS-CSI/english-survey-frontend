@@ -1,8 +1,9 @@
-const { combineReducers } = require('redux');
-const { Map } = require('immutable');
-const { UPDATE_RESPONSE, MOVETO_NEXTSTUDENT, MOVETO_PREVSTUDENT, LOGIN, LOGOUT } = require('./actions.js');
+const { combineReducers } = require("redux");
+const { Map } = require("immutable");
+const { UPDATE_RESPONSE, MOVETO_NEXTSTUDENT, MOVETO_PREVSTUDENT, LOGIN, LOGOUT } = require("./actions.js");
 
-function response(state = null, action) {
+// - Reducers
+const response = (state = null, action) => {
     switch(action.type) {
         case UPDATE_RESPONSE:
             return [
@@ -15,9 +16,9 @@ function response(state = null, action) {
         default:
             return state;
     }
-}
+};
 
-function student(state = 0, action) {
+const student = (state = 0, action) => {
     switch(action.type) {
         case MOVETO_NEXTSTUDENT:
             return state + 1;
@@ -26,9 +27,9 @@ function student(state = 0, action) {
         default:
             return state;
     }
-}
+};
 
-function account(state = null, action) {
+const account = (state = null, action) => {
     switch(action.type) {
         case LOGIN:
             return action.id;
@@ -37,12 +38,13 @@ function account(state = null, action) {
         default:
             return state;
     }
-}
+};
 
+// - Root Reducer
 const surveyApp = combineReducers({
     response,
     student,
     account
 });
 
-export default surveyApp;
+module.exports.default = surveyApp;

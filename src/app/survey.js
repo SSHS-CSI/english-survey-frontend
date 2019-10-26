@@ -1,7 +1,5 @@
 const React = require("react");
 const { connect } = require('react-redux');
-const ClassNames = require('classnames');
-const propTypes = require('prop-types');
 const { makeStyles, useTheme } = require('@material-ui/core/styles');
 
 const Card = require('@material-ui/core/Card').default;
@@ -10,43 +8,47 @@ const { updateResponse } = require('./actions.js');
 const Objective = require('./objective.js');
 const Descriptive = require('./descriptive.js');
 
-const mapStateToProps = state => {
-    return {
-        data: state.response
+const useStyles = makeStyles(theme => ({
+    orderedList: {
+        listStyleType: "none",
+        counterReset: "item",
+        "& li .MuiCardContent-root": {
+            position: "relative",
+            counterIncrement: "item",
+            "&::before": {
+                position: "absolute",
+                left: -theme.spacing(),
+                ...theme.typography.body1,
+                content: "counter(item)'.'"
+            }
+        }
     }
-}
+}));
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateResponse: index => (_, value) => dispatch(updateResponse(value, index))
-    }
-}
+const mapStateToProps = state => ({
+    data: state.response
+})
 
-function survey({ data, updateResponse }) {
+const mapDispatchToProps = dispatch => ({
+    updateResponse: index => (_, value) => dispatch(updateResponse(value, index))
+})
+
+function Survey({ data, updateResponse }) {
+    const classes = useStyles();
     return (
         <Card>
-            {data.map((item, index) => {
-                return (item.type === 'objective') ?
-                    <Objective
-                        key={ClassNames(item.type, index)}
-                        data={data[index]}
-                        updateResponse={updateResponse(index)}
-                        index={index}
-                    />
-                    : <Descriptive
-                        key={ClassNames(item.type, index)}
-                        data={data[index]}
-                        updateResponse={updateResponse(index)}
-                        index={index}
-                    />
-            })}
+            <ol className={classes.orderedList}>
+                {data.map(({ type, content, selectCount }, index) => {
+                    return (type === 'objective') ?
+                    <Objective key={`survey-${type}-${index}`} data={data[index]} updateResponse={updateResponse(index)} index={index} />
+                    : <Descriptive key={`survey-${type}-${index}`} data={data[index]} updateResponse={updateResponse(index)} index={index} />
+                })}
+            </ol>
         </Card>
     );
 }
 
-const Survey = connect(
+module.exports = connect(
     mapStateToProps,
     mapDispatchToProps
-)(survey)
-
-module.exports = Survey;
+)(Survey)

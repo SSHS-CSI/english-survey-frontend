@@ -1,37 +1,30 @@
-/* 
-***** 액션 타입
-*/
+// - Action Constants
+const UPDATE_RESPONSE = "UPDATE_RESPONSE";
+const MOVETO_NEXTSTUDENT = "MOVE_NEXTSTUDENT";
+const MOVETO_PREVSTUDENT = "MOVE_PREVSTUDENT";
+const LOGIN = "LOGIN";
+const LOGOUT = "LOGOUT";
 
-export const UPDATE_RESPONSE = 'UPDATE_RESPONSE';
-export const MOVETO_NEXTSTUDENT = 'MOVE_NEXTSTUDENT';
-export const MOVETO_PREVSTUDENT = 'MOVE_PREVSTUDENT';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+// - Action Creators
+const updateResponse = (response, index) => ({
+    type: UPDATE_RESPONSE,
+    response,
+    index
+});
+const movetoNextStudent = () => ({ type: MOVETO_NEXTSTUDENT });
+const movetoPrevStudent = () => ({ type: MOVETO_PREVSTUDENT });
+const login = (id) => ({ type: LOGIN, id: id });
+const logout = () => ({ type: LOGOUT });
 
-/* 
-***** 액션 생산자
-*/
-
-export function updateResponse(response, index) {
-    return {
-        type: UPDATE_RESPONSE,
-        response: response,
-        index: index
-    }
-}
-
-export function movetoNextStudent() {
-    return { type: MOVETO_NEXTSTUDENT }
-}
-
-export function movetoPrevStudent() {
-    return { type: MOVETO_PREVSTUDENT }
-}
-
-export function login(id) {
-    return { type: LOGIN, id: id }
-}
-
-export function logout() {
-    return { type: LOGOUT }
+module.exports = {
+    UPDATE_RESPONSE,
+    MOVETO_NEXTSTUDENT,
+    MOVETO_PREVSTUDENT,
+    LOGIN,
+    LOGOUT,
+    updateResponse,
+    movetoNextStudent,
+    movetoPrevStudent,
+    login,
+    logout
 }

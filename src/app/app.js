@@ -1,32 +1,20 @@
 const React = require("react");
-const { makeStyles, useTheme } = require('@material-ui/core/styles');
+const { makeStyles } = require('@material-ui/core/styles');
 
-const Objective = require('./objective.js');
-const Survey = require('./survey.js');
+const Objective = require("./objective.js");
+const Survey = require("./survey.js");
 
-const Sizing = require('@material-ui/system').default;
-const Box = require('@material-ui/core/Box').default;
+const Grid = require("@material-ui/core/Grid").default;
 
-const useStyles = makeStyles(theme => ({
-    app: {
-        display: 'flex', 
-    },
-    box: {
-        margin: theme.spacing(1),
-    },
-}))
-
-function App() {
-    const classes = useStyles();
-    const theme = useTheme();
-
-    return (
-        <div className={classes.app}>
-            <Box className={classes.box} width={0.5}>
-                <Survey />
-            </Box>
-        </div>
-    );
-}
+const App = () => (
+    <Grid container spacing={2}>
+        <Grid item xs={12} md={6}>
+            <Survey />
+        </Grid>
+        <Grid item xs={12} md={6}>
+            <Survey />
+        </Grid>
+    </Grid>
+)
 
 module.exports = App;

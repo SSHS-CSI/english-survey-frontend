@@ -12,23 +12,21 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: theme.spacing(5),
         paddingRight: theme.spacing(5),
     },
-    cardactions: {
+    cardActions: {
         paddingTop: 0,
     }
 }))
 
-function Descriptive({ data, updateResponse, index }) {
+function Descriptive({ data, updateResponse, index, ...props }) {
     const classes = useStyles();
-    const theme = useTheme();
-
     return (
-        <>
+        <li>
             <CardContent>
                 <Typography>
-                    {index + 1}. {data.content}
+                    {data.content}
                 </Typography>
             </CardContent>
-            <CardActions className={classes.cardactions}>
+            <CardActions className={classes.cardActions}>
                 <TextField
                     multiline
                     fullWidth
@@ -39,16 +37,8 @@ function Descriptive({ data, updateResponse, index }) {
                     variant="outlined"
                 />
             </CardActions>
-        </>
+        </li>
     );
-}
-
-Descriptive.propTypes = {
-    data: PropTypes.shape({
-        content: PropTypes.string,
-        updateResponse: PropTypes.string
-    }),
-    index: PropTypes.number.isRequired
 }
 
 module.exports = Descriptive;
