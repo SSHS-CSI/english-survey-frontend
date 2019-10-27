@@ -1,7 +1,8 @@
 {
   "name": "english-survey-frontend",
   "scripts": {
-    "start": "parcel src/index.html"
+    "start": "parcel src/index.html",
+    "clean": "rm -rf .cache dist"
   },
   "version": "0.0.0",
   "main": "index.js",
