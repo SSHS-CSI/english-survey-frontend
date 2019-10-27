@@ -1,4 +1,5 @@
 const React = require("react");
+const { connect } = require("react-redux");
 const { makeStyles } = require('@material-ui/core/styles');
 
 const Objective = require("./objective.js");

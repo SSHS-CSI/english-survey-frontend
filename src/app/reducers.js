@@ -47,4 +47,4 @@ const surveyApp = combineReducers({
     account
 });
 
-module.exports.default = surveyApp;
+module.exports = surveyApp;

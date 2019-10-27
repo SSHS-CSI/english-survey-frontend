@@ -1,12 +1,12 @@
 const React = require("react");
-const { connect } = require('react-redux');
-const { makeStyles, useTheme } = require('@material-ui/core/styles');
+const { connect } = require("react-redux");
+const { makeStyles, useTheme } = require("@material-ui/core/styles");
 
-const Card = require('@material-ui/core/Card').default;
+const Card = require("@material-ui/core/Card").default;
 
-const { updateResponse } = require('./actions.js');
-const Objective = require('./objective.js');
-const Descriptive = require('./descriptive.js');
+const { updateResponse } = require("./actions.js");
+const Objective = require("./objective.js");
+const Descriptive = require("./descriptive.js");
 
 const useStyles = makeStyles(theme => ({
     orderedList: {
@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateResponse: index => (_, value) => dispatch(updateResponse(value, index))
+    updateResponse: index => value => dispatch(updateResponse(value, index))
 })
 
 function Survey({ data, updateResponse }) {
@@ -39,7 +39,7 @@ function Survey({ data, updateResponse }) {
         <Card>
             <ol className={classes.orderedList}>
                 {data.map(({ type, content, selectCount }, index) => {
-                    return (type === 'objective') ?
+                    return (type === "objective") ?
                     <Objective key={`survey-${type}-${index}`} data={data[index]} updateResponse={updateResponse(index)} index={index} />
                     : <Descriptive key={`survey-${type}-${index}`} data={data[index]} updateResponse={updateResponse(index)} index={index} />
                 })}
