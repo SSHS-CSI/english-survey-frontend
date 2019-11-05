@@ -1,6 +1,6 @@
 const React = require("react");
 const { connect } = require("react-redux");
-const { makeStyles } = require('@material-ui/core/styles');
+const { makeStyles } = require("@material-ui/core/styles");
 
 const Objective = require("./objective.js");
 const Survey = require("./survey.js");
@@ -16,6 +16,6 @@ const App = () => (
             <Survey />
         </Grid>
     </Grid>
-)
+);
 
 module.exports = App;

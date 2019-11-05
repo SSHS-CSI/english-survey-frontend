@@ -14,17 +14,20 @@ const data = [
         content: "hmmmm...?",
         selectCount: 5,
         response: 1
-    }, {
+    },
+    {
         type: "objective",
         content: "hmmmm...?",
         selectCount: 4,
         response: 1
-    }, {
+    },
+    {
         type: "objective",
         content: "hmmmm...?",
         selectCount: 6,
         response: 1
-    }, {
+    },
+    {
         type: "descriptive",
         content: "How do you do?",
         response: ""
@@ -37,5 +40,5 @@ ReactDOM.render(
     <Provider store={store}>
         <App />
     </Provider>,
-   document.getElementById("root")
+    document.getElementById("root")
 );

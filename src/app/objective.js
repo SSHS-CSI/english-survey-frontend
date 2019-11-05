@@ -10,25 +10,29 @@ const useStyles = makeStyles(theme => ({
     cardActions: {
         paddingLeft: theme.spacing(10),
         paddingRight: theme.spacing(10),
-        paddingTop: 0,
+        paddingTop: 0
     }
-}))
-
+}));
 
 function Objective({ data, updateResponse, ...props }) {
     const classes = useStyles();
-    const marks = [...Array(data.selectCount).keys()].map(i => ({ value: i + 1, label: `${i + 1}` }));
-    let value;
-
     return (
         <li>
             <CardContent>
-                <Typography>
-                    {data.content}
-                </Typography>
+                <Typography>{data.content}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
-                <Slider value={data.response} marks={marks} min={1} max={data.selectCount} defaultValue={1} onChange={(_, value) => updateResponse(value)} />
+                <Slider
+                    value={data.response}
+                    marks={[...Array(data.selectCount).keys()].map(i => ({
+                        value: i + 1,
+                        label: `${i + 1}`
+                    }))}
+                    min={1}
+                    max={data.selectCount}
+                    defaultValue={1}
+                    onChange={(_, value) => updateResponse(value)}
+                />
             </CardActions>
         </li>
     );

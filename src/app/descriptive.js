@@ -10,21 +10,19 @@ const TextField = require("@material-ui/core/TextField").default;
 const useStyles = makeStyles(theme => ({
     textField: {
         paddingLeft: theme.spacing(5),
-        paddingRight: theme.spacing(5),
+        paddingRight: theme.spacing(5)
     },
     cardActions: {
-        paddingTop: 0,
+        paddingTop: 0
     }
-}))
+}));
 
 function Descriptive({ data, updateResponse, ...props }) {
     const classes = useStyles();
     return (
         <li>
             <CardContent>
-                <Typography>
-                    {data.content}
-                </Typography>
+                <Typography>{data.content}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <TextField

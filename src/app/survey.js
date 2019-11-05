@@ -27,11 +27,11 @@ const useStyles = makeStyles(theme => ({
 
 const mapStateToProps = state => ({
     data: state.response
-})
+});
 
 const mapDispatchToProps = dispatch => ({
     updateResponse: (value, index) => dispatch(updateResponse(value, index))
-})
+});
 
 function Survey({ data, updateResponse }) {
     const classes = useStyles();
@@ -39,8 +39,17 @@ function Survey({ data, updateResponse }) {
         <Card>
             <ol className={classes.orderedList}>
                 {data.map(({ type, content, selectCount }, index) => {
-                    const QuestionComponent = (type === "objective") ? Objective : Descriptive
-                    return <QuestionComponent key={`survey-${type}-${index}`} data={data[index]} updateResponse={value => updateResponse(value, index)} />
+                    const QuestionComponent =
+                        type === "objective" ? Objective : Descriptive;
+                    return (
+                        <QuestionComponent
+                            key={`survey-${type}-${index}`}
+                            data={data[index]}
+                            updateResponse={value =>
+                                updateResponse(value, index)
+                            }
+                        />
+                    );
                 })}
             </ol>
         </Card>
@@ -50,4 +59,4 @@ function Survey({ data, updateResponse }) {
 module.exports = connect(
     mapStateToProps,
     mapDispatchToProps
-)(Survey)
+)(Survey);

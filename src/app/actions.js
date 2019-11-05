@@ -13,7 +13,7 @@ const updateResponse = (response, index) => ({
 });
 const movetoNextStudent = () => ({ type: MOVETO_NEXTSTUDENT });
 const movetoPrevStudent = () => ({ type: MOVETO_PREVSTUDENT });
-const login = (id) => ({ type: LOGIN, id: id });
+const login = id => ({ type: LOGIN, id: id });
 const logout = () => ({ type: LOGOUT });
 
 module.exports = {
@@ -27,4 +27,4 @@ module.exports = {
     movetoPrevStudent,
     login,
     logout
-}
+};
