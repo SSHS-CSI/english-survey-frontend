@@ -8,9 +8,10 @@ const response = (state = null, action) => {
         case UPDATE_RESPONSE:
             return [
                 ...state.slice(0, action.index),
-                Object.assign({}, state[action.index], {
+                {
+                    ...state[action.index],
                     response: action.response
-                }),
+                },
                 ...state.slice(action.index + 1)
             ]
         default:
