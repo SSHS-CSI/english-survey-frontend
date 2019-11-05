@@ -1,40 +1,16 @@
 require("typeface-roboto");
+require("@babel/polyfill");
 
 const React = require("react");
 const ReactDOM = require("react-dom");
 const { Provider } = require("react-redux");
-const { createStore } = require("redux");
+const { createStore, applyMiddleware } = require("redux");
+const { default: thunk } = require("redux-thunk");
 
 const surveyApp = require("./app/reducers.js");
 const App = require("./app/app");
 
-const data = [
-    {
-        type: "objective",
-        content: "hmmmm...?",
-        selectCount: 5,
-        response: 1
-    },
-    {
-        type: "objective",
-        content: "hmmmm...?",
-        selectCount: 4,
-        response: 1
-    },
-    {
-        type: "objective",
-        content: "hmmmm...?",
-        selectCount: 6,
-        response: 1
-    },
-    {
-        type: "descriptive",
-        content: "How do you do?",
-        response: ""
-    }
-];
-
-let store = createStore(surveyApp, { response: data });
+let store = createStore(surveyApp, { response: [] }, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,10 +1,18 @@
 const React = require("react");
+const { useEffect } = React;
 const { connect } = require("react-redux");
 const { makeStyles, useTheme } = require("@material-ui/core/styles");
 
+const fetchFromAPI = require("../../mock");
+
 const Card = require("@material-ui/core/Card").default;
 
-const { updateResponse } = require("./actions.js");
+const {
+    fetchQuestionsBegin,
+    fetchQuestionsFailure,
+    fetchQuestionsSuccess,
+    updateResponse
+} = require("./actions.js");
 const Objective = require("./objective.js");
 const Descriptive = require("./descriptive.js");
 
@@ -26,14 +34,23 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const mapStateToProps = state => ({
-    data: state.response
+    data: state.fetch.questions
 });
 
 const mapDispatchToProps = dispatch => ({
+    fetchQuestions: () => {
+        dispatch(fetchQuestionsBegin());
+        dispatch(async () => {
+            dispatch(fetchQuestionsSuccess(await fetchFromAPI()));
+        });
+    },
     updateResponse: (value, index) => dispatch(updateResponse(value, index))
 });
 
-function Survey({ data, updateResponse }) {
+function Survey({ data, updateResponse, fetchQuestions }) {
+    useEffect(() => {
+        fetchQuestions();
+    }, []);
     const classes = useStyles();
     return (
         <Card>

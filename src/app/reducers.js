@@ -1,6 +1,9 @@
 const { combineReducers } = require("redux");
 const { Map } = require("immutable");
 const {
+    FETCH_QUESTIONS_BEGIN,
+    FETCH_QUESTIONS_SUCCESS,
+    FETCH_QUESTIONS_FAILURE,
     UPDATE_RESPONSE,
     MOVETO_NEXTSTUDENT,
     MOVETO_PREVSTUDENT,
@@ -9,6 +12,37 @@ const {
 } = require("./actions.js");
 
 // - Reducers
+const fetch = (
+    state = {
+        questions: [],
+        loading: false,
+        error: null
+    },
+    action
+) => {
+    switch (action.type) {
+        case FETCH_QUESTIONS_BEGIN:
+            return {
+                ...state,
+                loading: true
+            };
+        case FETCH_QUESTIONS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                questions: action.questions
+            };
+        case FETCH_QUESTIONS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.error
+            };
+        default:
+            return state;
+    }
+};
+
 const response = (state = null, action) => {
     switch (action.type) {
         case UPDATE_RESPONSE:
@@ -49,6 +83,7 @@ const account = (state = null, action) => {
 
 // - Root Reducer
 const surveyApp = combineReducers({
+    fetch,
     response,
     student,
     account
