@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    updateResponse: index => value => dispatch(updateResponse(value, index))
+    updateResponse: (value, index) => dispatch(updateResponse(value, index))
 })
 
 function Survey({ data, updateResponse }) {
@@ -39,9 +39,8 @@ function Survey({ data, updateResponse }) {
         <Card>
             <ol className={classes.orderedList}>
                 {data.map(({ type, content, selectCount }, index) => {
-                    return (type === "objective") ?
-                    <Objective key={`survey-${type}-${index}`} data={data[index]} updateResponse={updateResponse(index)} index={index} />
-                    : <Descriptive key={`survey-${type}-${index}`} data={data[index]} updateResponse={updateResponse(index)} index={index} />
+                    const QuestionComponent = (type === "objective") ? Objective : Descriptive
+                    return <QuestionComponent key={`survey-${type}-${index}`} data={data[index]} updateResponse={value => updateResponse(value, index)} />
                 })}
             </ol>
         </Card>
