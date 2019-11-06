@@ -10,7 +10,7 @@ const { default: thunk } = require("redux-thunk");
 const surveyApp = require("./app/reducers.js");
 const App = require("./app/app");
 
-let store = createStore(surveyApp, { response: [] }, applyMiddleware(thunk));
+let store = createStore(surveyApp, {}, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>
