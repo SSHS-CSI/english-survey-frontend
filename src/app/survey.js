@@ -34,7 +34,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const mapStateToProps = state => ({
-    data: state.fetch.questions
+    questions: state.fetch.questions,
+    response: state.response
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -44,10 +45,17 @@ const mapDispatchToProps = dispatch => ({
             dispatch(fetchQuestionsSuccess(await fetchFromAPI()));
         });
     },
-    updateResponse: (value, index) => dispatch(updateResponse(value, index))
+    updateResponse: (value, index, location) =>
+        dispatch(updateResponse(value, index, location))
 });
 
-function Survey({ data, updateResponse, fetchQuestions }) {
+function Survey({
+    questions,
+    response,
+    location,
+    updateResponse,
+    fetchQuestions
+}) {
     useEffect(() => {
         fetchQuestions();
     }, []);
@@ -55,15 +63,16 @@ function Survey({ data, updateResponse, fetchQuestions }) {
     return (
         <Card>
             <ol className={classes.orderedList}>
-                {data.map(({ type, content, selectCount }, index) => {
+                {questions.map(({ type, ...question }, index) => {
                     const QuestionComponent =
                         type === "objective" ? Objective : Descriptive;
                     return (
                         <QuestionComponent
                             key={`survey-${type}-${index}`}
-                            data={data[index]}
+                            question={question}
+                            response={response[index][location]}
                             updateResponse={value =>
-                                updateResponse(value, index)
+                                updateResponse(value, index, location)
                             }
                         />
                     );

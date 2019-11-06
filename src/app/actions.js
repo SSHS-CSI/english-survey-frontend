@@ -18,10 +18,11 @@ const fetchQuestionsSuccess = questions => ({
     type: FETCH_QUESTIONS_SUCCESS,
     questions
 });
-const updateResponse = (response, index) => ({
+const updateResponse = (response, index, location) => ({
     type: UPDATE_RESPONSE,
     response,
-    index
+    index,
+    location
 });
 const movetoNextStudent = () => ({ type: MOVETO_NEXTSTUDENT });
 const movetoPrevStudent = () => ({ type: MOVETO_PREVSTUDENT });

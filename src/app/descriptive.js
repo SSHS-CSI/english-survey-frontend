@@ -17,18 +17,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Descriptive({ data, updateResponse, ...props }) {
+function Descriptive({ question, response, updateResponse, ...props }) {
     const classes = useStyles();
     return (
         <li>
             <CardContent>
-                <Typography>{data.content}</Typography>
+                <Typography>{question.content}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <TextField
                     multiline
                     fullWidth
-                    value={data.response}
+                    value={response}
                     onChange={e => updateResponse(e.target.value)}
                     className={classes.textField}
                     margin="none"

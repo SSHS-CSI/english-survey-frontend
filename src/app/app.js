@@ -10,10 +10,10 @@ const Grid = require("@material-ui/core/Grid").default;
 const App = () => (
     <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
-            <Survey />
+            <Survey location="left" />
         </Grid>
         <Grid item xs={12} md={6}>
-            <Survey />
+            <Survey location="right" />
         </Grid>
     </Grid>
 );

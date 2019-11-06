@@ -14,22 +14,22 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Objective({ data, updateResponse, ...props }) {
+function Objective({ question, response, updateResponse, ...props }) {
     const classes = useStyles();
     return (
         <li>
             <CardContent>
-                <Typography>{data.content}</Typography>
+                <Typography>{question.content}</Typography>
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Slider
-                    value={data.response}
-                    marks={[...Array(data.selectCount).keys()].map(i => ({
+                    value={response}
+                    marks={[...Array(question.selectCount).keys()].map(i => ({
                         value: i + 1,
                         label: `${i + 1}`
                     }))}
                     min={1}
-                    max={data.selectCount}
+                    max={question.selectCount}
                     defaultValue={1}
                     onChange={(_, value) => updateResponse(value)}
                 />

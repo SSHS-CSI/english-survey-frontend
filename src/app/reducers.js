@@ -41,19 +41,29 @@ const fetch = (
                 loading: false,
                 error: action.error
             };
+        default:
+            return state;
+    }
+};
+
+const response = (state = [], action) => {
+    switch (action.type) {
         case UPDATE_RESPONSE:
-            const questions = state.questions;
-            return {
-                ...state,
-                questions: [
-                    ...questions.slice(0, action.index),
-                    {
-                        ...questions[action.index],
-                        response: action.response
-                    },
-                    ...questions.slice(action.index + 1)
-                ]
-            };
+            return [
+                ...state.slice(0, action.index),
+                {
+                    ...state[action.index],
+                    [action.location]: action.response
+                },
+                ...state.slice(action.index + 1)
+            ];
+        case FETCH_QUESTIONS_SUCCESS:
+            return action.questions
+                .map(question => (question.type === "objective" ? 1 : ""))
+                .map(defaultValue => ({
+                    left: defaultValue,
+                    right: defaultValue
+                }));
         default:
             return state;
     }
@@ -84,6 +94,7 @@ const account = (state = null, action) => {
 // - Root Reducer
 const surveyApp = combineReducers({
     fetch,
+    response,
     student,
     account
 });
