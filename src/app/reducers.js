@@ -5,6 +5,7 @@ const {
     FETCH_QUESTIONS_SUCCESS,
     FETCH_QUESTIONS_FAILURE,
     UPDATE_RESPONSE,
+    REPLACE_RESPONSE,
     MOVETO_NEXTSTUDENT,
     MOVETO_PREVSTUDENT,
     LOGIN,
@@ -57,6 +58,8 @@ const response = (state = [], action) => {
                 },
                 ...state.slice(action.index + 1)
             ];
+        case REPLACE_RESPONSE:
+            return action.response;
         case FETCH_QUESTIONS_SUCCESS:
             return action.questions
                 .map(question => (question.type === "objective" ? 1 : ""))

@@ -13,7 +13,13 @@ const CssBaseline = require("@material-ui/core/CssBaseline").default;
 const Container = require("@material-ui/core/Container").default;
 const Grid = require("@material-ui/core/Grid").default;
 
-const { movetoNextStudent, movetoPrevStudent } = require("./actions.js");
+const {
+    movetoNextStudent,
+    movetoPrevStudent,
+    replaceResponse
+} = require("./actions.js");
+
+const { pushToAPI, getFromAPI } = require("../../mock");
 
 const useStyles = makeStyles(theme => ({
     surveyContainer: {
@@ -24,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const App = ({ student, nextStudent, prevStudent }) => {
+const App = ({ student, nextStudent, prevStudent, response }) => {
     const classes = useStyles();
     return (
         <>
@@ -49,8 +55,9 @@ const App = ({ student, nextStudent, prevStudent }) => {
                     <Grid item xs={12} sm={6}>
                         <Button
                             variant="contained"
-                            onClick={prevStudent}
+                            onClick={() => prevStudent({ student, response })}
                             className={classes.studentButton}
+                            disabled={student === 0}
                         >
                             Previous Student
                         </Button>
@@ -58,7 +65,7 @@ const App = ({ student, nextStudent, prevStudent }) => {
                     <Grid item xs={12} sm={6}>
                         <Button
                             variant="contained"
-                            onClick={nextStudent}
+                            onClick={() => nextStudent({ student, response })}
                             className={classes.studentButton}
                         >
                             Next Student
@@ -71,12 +78,33 @@ const App = ({ student, nextStudent, prevStudent }) => {
 };
 
 const mapStateToProps = state => ({
-    student: state.student
+    student: state.student,
+    response: state.response
 });
 
 const mapDispatchToProps = dispatch => ({
-    nextStudent: () => dispatch(movetoNextStudent()),
-    prevStudent: () => dispatch(movetoPrevStudent())
+    nextStudent: data => {
+        dispatch(movetoNextStudent());
+        dispatch(async () => {
+            await pushToAPI(data);
+        });
+        dispatch(async () =>
+            dispatch(
+                replaceResponse((await getFromAPI(data.student + 1)).response)
+            )
+        );
+    },
+    prevStudent: data => {
+        dispatch(movetoPrevStudent());
+        dispatch(async () => {
+            await pushToAPI(data);
+        });
+        dispatch(async () =>
+            dispatch(
+                replaceResponse((await getFromAPI(data.student - 1)).response)
+            )
+        );
+    }
 });
 
 module.exports = connect(

@@ -3,7 +3,7 @@ const { useEffect } = React;
 const { connect } = require("react-redux");
 const { makeStyles, useTheme } = require("@material-ui/core/styles");
 
-const fetchFromAPI = require("../../mock");
+const { fetchFromAPI } = require("../../mock");
 
 const Card = require("@material-ui/core/Card").default;
 
