@@ -1,5 +1,4 @@
 const { combineReducers } = require("redux");
-const { Map } = require("immutable");
 const {
     FETCH_QUESTIONS_BEGIN,
     FETCH_QUESTIONS_SUCCESS,
