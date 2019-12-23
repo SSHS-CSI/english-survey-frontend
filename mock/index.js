@@ -3,7 +3,11 @@ const delay = require("delay");
 const dataStore = [];
 
 module.exports = {
-    fetchFromAPI: async () => {
+    fetchStudentCount: async () => {
+        await delay(1000);
+        return 5;
+    },
+    fetchQuestions: async () => {
         await delay(1000);
         return [
             {
@@ -22,7 +26,7 @@ module.exports = {
             }
         ];
     },
-    pushToAPI: async data => {
+    pushResponses: async data => {
         await delay(1000);
         console.log("Pushed mock data");
         console.log(data);
@@ -31,17 +35,34 @@ module.exports = {
             success: true
         };
     },
-    getFromAPI: async student => {
+    fetchResponses: async () => {
         await delay(1000);
-        return {
-            student,
-            response: dataStore[student]
-                ? dataStore[student]
-                : [
-                      { left: 0, right: 0 },
-                      { left: 0, right: 0 },
-                      { left: "", right: "" }
-                  ]
-        };
+        return [
+            [
+                [2, 3],
+                [3, 1],
+                ["A", "B"]
+            ],
+            [
+                [2, 3],
+                [3, 1],
+                ["A", "B"]
+            ],
+            [
+                [2, 3],
+                [3, 1],
+                ["A", "B"]
+            ],
+            [
+                [2, 3],
+                [3, 1],
+                ["A", "B"]
+            ],
+            [
+                [2, 3],
+                [3, 1],
+                ["A", "B"]
+            ]
+        ].map(response => response.map(([left, right]) => ({ left, right })));
     }
 };

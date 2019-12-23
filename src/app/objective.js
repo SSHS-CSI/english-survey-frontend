@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Objective({ question, response, updateResponse, ...props }) {
+function Objective({ question, value, onChange }) {
     const classes = useStyles();
     return (
         <li>
@@ -23,7 +23,7 @@ function Objective({ question, response, updateResponse, ...props }) {
             </CardContent>
             <CardActions className={classes.cardActions}>
                 <Slider
-                    value={response}
+                    value={value}
                     marks={[...Array(question.selectCount).keys()].map(i => ({
                         value: i + 1,
                         label: `${i + 1}`
@@ -31,7 +31,7 @@ function Objective({ question, response, updateResponse, ...props }) {
                     min={1}
                     max={question.selectCount}
                     defaultValue={1}
-                    onChange={(_, value) => updateResponse(value)}
+                    onChange={(_, value) => onChange(value)}
                 />
             </CardActions>
         </li>

@@ -1,6 +1,5 @@
 const React = require("react");
-const PropTypes = require("prop-types");
-const { makeStyles, useTheme } = require("@material-ui/core/styles");
+const { makeStyles } = require("@material-ui/core/styles");
 
 const CardActions = require("@material-ui/core/CardActions").default;
 const CardContent = require("@material-ui/core/CardContent").default;
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Descriptive({ question, response, updateResponse, ...props }) {
+function Descriptive({ question, value, onChange }) {
     const classes = useStyles();
     return (
         <li>
@@ -28,8 +27,8 @@ function Descriptive({ question, response, updateResponse, ...props }) {
                 <TextField
                     multiline
                     fullWidth
-                    value={response}
-                    onChange={e => updateResponse(e.target.value)}
+                    value={value}
+                    onChange={e => onChange(e.target.value)}
                     className={classes.textField}
                     margin="none"
                     variant="outlined"

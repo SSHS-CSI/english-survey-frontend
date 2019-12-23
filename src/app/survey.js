@@ -1,18 +1,11 @@
 const React = require("react");
-const { useEffect } = React;
 const { connect } = require("react-redux");
-const { makeStyles, useTheme } = require("@material-ui/core/styles");
-
-const { fetchFromAPI } = require("../../mock");
+const { makeStyles } = require("@material-ui/core/styles");
+const { default: produce } = require("immer");
 
 const Card = require("@material-ui/core/Card").default;
 
-const {
-    fetchQuestionsBegin,
-    fetchQuestionsFailure,
-    fetchQuestionsSuccess,
-    updateResponse
-} = require("./actions.js");
+const { updateResponse } = require("./actions.js");
 const Objective = require("./objective.js");
 const Descriptive = require("./descriptive.js");
 
@@ -35,30 +28,17 @@ const useStyles = makeStyles(theme => ({
 
 const mapStateToProps = state => ({
     questions: state.fetch.questions,
-    response: state.response
+    response: state.responses[state.student],
+    student: state.student
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchQuestions: () => {
-        dispatch(fetchQuestionsBegin());
-        dispatch(async () => {
-            dispatch(fetchQuestionsSuccess(await fetchFromAPI()));
-        });
-    },
-    updateResponse: (value, index, location) =>
-        dispatch(updateResponse(value, index, location))
+    updateResponse: (response, student) => {
+        dispatch(updateResponse(response, student));
+    }
 });
 
-function Survey({
-    questions,
-    response,
-    location,
-    updateResponse,
-    fetchQuestions
-}) {
-    useEffect(() => {
-        fetchQuestions();
-    }, []);
+const Survey = ({ questions, response, location, student, updateResponse }) => {
     const classes = useStyles();
     return (
         <Card>
@@ -67,22 +47,26 @@ function Survey({
                     const QuestionComponent =
                         type === "objective" ? Objective : Descriptive;
                     return (
-                        <QuestionComponent
-                            key={`survey-${type}-${index}`}
-                            question={question}
-                            response={response[index][location]}
-                            updateResponse={value =>
-                                updateResponse(value, index, location)
-                            }
-                        />
+                        response ?
+                            <QuestionComponent
+                                key={`survey-${location}-${type}-${index}`}
+                                question={question}
+                                value={response[index][location]}
+                                onChange={value => {
+                                    const newResponse = produce(
+                                        response,
+                                        response => {
+                                            response[index][location] = value;
+                                        }
+                                    );
+                                    updateResponse(newResponse, student);
+                                }}
+                            /> : null
                     );
                 })}
             </ol>
         </Card>
     );
-}
+};
 
-module.exports = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Survey);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Survey);

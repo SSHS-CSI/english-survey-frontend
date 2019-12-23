@@ -1,78 +1,83 @@
 const { combineReducers } = require("redux");
 const {
-    FETCH_QUESTIONS_BEGIN,
+    FETCH_BEGIN,
+    FETCH_STUDENT_COUNT_SUCCESS,
+    FETCH_RESPONSES_SUCCESS,
     FETCH_QUESTIONS_SUCCESS,
-    FETCH_QUESTIONS_FAILURE,
+    FETCH_FAILURE,
     UPDATE_RESPONSE,
-    REPLACE_RESPONSE,
     MOVETO_NEXTSTUDENT,
-    MOVETO_PREVSTUDENT,
-    LOGIN,
-    LOGOUT
+    MOVETO_PREVSTUDENT
 } = require("./actions.js");
+const { default: produce } = require("immer");
 
 // - Reducers
 const fetch = (
     state = {
         questions: [],
-        loading: false,
-        error: null
+        loadingStudentCount: false,
+        loadingQuestions: false,
+        loadingResponses: false,
+        error: null,
+        count: null,
+        responses: null
     },
-    action
+    { type, payload }
 ) => {
-    switch (action.type) {
-        case FETCH_QUESTIONS_BEGIN:
+    switch (type) {
+        case FETCH_BEGIN:
             return {
                 ...state,
-                loading: true
+                loadingStudentCount: true,
+                loadingQuestions: true,
+                loadingResponses: true
+            };
+        case FETCH_STUDENT_COUNT_SUCCESS:
+            return {
+                ...state,
+                loadingStudentCount: false,
+                count: payload
             };
         case FETCH_QUESTIONS_SUCCESS:
             return {
                 ...state,
-                loading: false,
-                questions: action.questions.map(question => ({
-                    ...question,
-                    response: question.type === "objective" ? 1 : ""
-                }))
+                loadingQuestions: false,
+                questions: payload
             };
-        case FETCH_QUESTIONS_FAILURE:
+        case FETCH_RESPONSES_SUCCESS:
             return {
                 ...state,
-                loading: false,
-                error: action.error
+                loadingResponses: false,
+                responses: payload
+            };
+        case FETCH_FAILURE:
+            return {
+                ...state,
+                loadingQuestions: false,
+                loadingStudentCount: false,
+                loadingResponses: false,
+                error: payload
             };
         default:
             return state;
     }
 };
 
-const response = (state = [], action) => {
-    switch (action.type) {
+const responses = (state = [], { type, payload }) => {
+    switch (type) {
         case UPDATE_RESPONSE:
-            return [
-                ...state.slice(0, action.index),
-                {
-                    ...state[action.index],
-                    [action.location]: action.response
-                },
-                ...state.slice(action.index + 1)
-            ];
-        case REPLACE_RESPONSE:
-            return action.response;
-        case FETCH_QUESTIONS_SUCCESS:
-            return action.questions
-                .map(question => (question.type === "objective" ? 1 : ""))
-                .map(defaultValue => ({
-                    left: defaultValue,
-                    right: defaultValue
-                }));
+            return produce(state, state => {
+                state[payload.student] = payload.response;
+            });
+        case FETCH_RESPONSES_SUCCESS:
+            return payload;
         default:
             return state;
     }
 };
 
-const student = (state = 0, action) => {
-    switch (action.type) {
+const student = (state = 0, { type }) => {
+    switch (type) {
         case MOVETO_NEXTSTUDENT:
             return state + 1;
         case MOVETO_PREVSTUDENT:
@@ -82,23 +87,11 @@ const student = (state = 0, action) => {
     }
 };
 
-const account = (state = null, action) => {
-    switch (action.type) {
-        case LOGIN:
-            return action.id;
-        case LOGOUT:
-            return null;
-        default:
-            return state;
-    }
-};
-
 // - Root Reducer
-const surveyApp = combineReducers({
+const rootReducer = combineReducers({
     fetch,
-    response,
-    student,
-    account
+    responses,
+    student
 });
 
-module.exports = surveyApp;
+module.exports = rootReducer;

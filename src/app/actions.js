@@ -1,56 +1,53 @@
 // - Action Constants
-const FETCH_QUESTIONS_BEGIN = "FETCH_QUESTIONS_BEGIN";
+const FETCH_BEGIN = "FETCH_BEGIN";
+const FETCH_STUDENT_COUNT_SUCCESS = "FETCH_STUDENT_COUNT_SUCCESS";
 const FETCH_QUESTIONS_SUCCESS = "FETCH_QUESTIONS_SUCCESS";
-const FETCH_QUESTIONS_FAILURE = "FETCH_QUESTIONS_FAILURE";
+const FETCH_RESPONSES_SUCCESS = "FETCH_RESPONSES_SUCCESS";
+const FETCH_FAILURE = "FETCH_FAILURE";
 const UPDATE_RESPONSE = "UPDATE_RESPONSE";
-const REPLACE_RESPONSE = "REPLACE_RESPONSE";
 const MOVETO_NEXTSTUDENT = "MOVETO_NEXTSTUDENT";
 const MOVETO_PREVSTUDENT = "MOVETO_PREVSTUDENT";
-const LOGIN = "LOGIN";
-const LOGOUT = "LOGOUT";
 
 // - Action Creators
-const fetchQuestionsBegin = () => ({ type: FETCH_QUESTIONS_BEGIN });
-const fetchQuestionsFailure = error => ({
-    type: FETCH_QUESTIONS_FAILURE,
-    error
+const fetchBegin = () => ({ type: FETCH_BEGIN });
+const fetchStudentCountSuccess = count => ({
+    type: FETCH_STUDENT_COUNT_SUCCESS,
+    payload: count
 });
 const fetchQuestionsSuccess = questions => ({
     type: FETCH_QUESTIONS_SUCCESS,
-    questions
+    payload: questions
 });
-const updateResponse = (response, index, location) => ({
+const fetchResponsesSuccess = responses => ({
+    type: FETCH_RESPONSES_SUCCESS,
+    payload: responses
+});
+const fetchFailure = error => ({
+    type: FETCH_FAILURE,
+    payload: error
+});
+const updateResponse = (response, student) => ({
     type: UPDATE_RESPONSE,
-    response,
-    index,
-    location
-});
-const replaceResponse = response => ({
-    type: REPLACE_RESPONSE,
-    response
+    payload: { response, student }
 });
 const movetoNextStudent = () => ({ type: MOVETO_NEXTSTUDENT });
 const movetoPrevStudent = () => ({ type: MOVETO_PREVSTUDENT });
-const login = id => ({ type: LOGIN, id: id });
-const logout = () => ({ type: LOGOUT });
 
 module.exports = {
-    FETCH_QUESTIONS_BEGIN,
-    FETCH_QUESTIONS_FAILURE,
+    FETCH_BEGIN,
+    FETCH_STUDENT_COUNT_SUCCESS,
     FETCH_QUESTIONS_SUCCESS,
+    FETCH_RESPONSES_SUCCESS,
+    FETCH_FAILURE,
     UPDATE_RESPONSE,
-    REPLACE_RESPONSE,
     MOVETO_NEXTSTUDENT,
     MOVETO_PREVSTUDENT,
-    LOGIN,
-    LOGOUT,
-    fetchQuestionsBegin,
-    fetchQuestionsFailure,
+    fetchBegin,
+    fetchStudentCountSuccess,
     fetchQuestionsSuccess,
+    fetchResponsesSuccess,
+    fetchFailure,
     updateResponse,
-    replaceResponse,
     movetoNextStudent,
-    movetoPrevStudent,
-    login,
-    logout
+    movetoPrevStudent
 };
