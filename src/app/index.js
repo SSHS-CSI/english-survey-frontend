@@ -1,22 +1,21 @@
 const React = require("react");
 const { useEffect } = React;
 const { connect } = require("react-redux");
+const { BrowserRouter: Router, Route, Switch } = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
 
-const Survey = require("./survey.js");
+const Login = require("./login.js");
+const Title = require("./title.js");
+const Questions = require("./questions.js");
+const StudentNavigation = require("./student-navigation.js");
 
 const AppBar = require("@material-ui/core/AppBar").default;
 const Button = require("@material-ui/core/Button").default;
 const Toolbar = require("@material-ui/core/Toolbar").default;
 const Typography = require("@material-ui/core/Typography").default;
 const CssBaseline = require("@material-ui/core/CssBaseline").default;
-const Container = require("@material-ui/core/Container").default;
-const Grid = require("@material-ui/core/Grid").default;
 
 const {
-    movetoNextStudent,
-    movetoPrevStudent,
-    replaceResponse,
     fetchBegin,
     fetchStudentCountSuccess,
     fetchQuestionsSuccess,
@@ -31,27 +30,14 @@ const {
     fetchQuestions
 } = require("../../mock");
 
-const useStyles = makeStyles(theme => ({
-    surveyContainer: {
-        marginTop: theme.spacing(2)
-    },
-    studentButton: {
-        width: "100%"
-    }
-}));
-
 const App = ({
     student,
-    nextStudent,
-    prevStudent,
-    responses,
-    fetchData,
-    isLoading
+    isLoading,
+    fetchData
 }) => {
     useEffect(fetchData, []);
-    const classes = useStyles();
     return (
-        <>
+        <Router>
             <CssBaseline />
             {isLoading ? (
                 <div>Loading...</div>
@@ -60,59 +46,27 @@ const App = ({
                     <AppBar position="static">
                         <Toolbar>
                             <Typography variant="h6">
-                                Student #{student}
+                                <Title />
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    <Container
-                        maxWidth="xl"
-                        className={classes.surveyContainer}
-                    >
-                        <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
-                                <Survey location="left" />
-                            </Grid>
-                            <Grid item xs={12} md={6}>
-                                <Survey location="right" />
-                            </Grid>
-                        </Grid>
-                    </Container>
-                    <Container maxWidth="sm">
-                        <Grid container spacing={2} justify="center">
-                            <Grid item xs={12} sm={6}>
-                                <Button
-                                    variant="contained"
-                                    onClick={() =>
-                                        prevStudent({ student, responses })
-                                    }
-                                    className={classes.studentButton}
-                                    disabled={student === 0}
-                                >
-                                    Previous Student
-                                </Button>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Button
-                                    variant="contained"
-                                    onClick={() =>
-                                        nextStudent({ student, responses })
-                                    }
-                                    className={classes.studentButton}
-                                >
-                                    Next Student
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Container>
+                    <Switch>
+                        <Route path="/survey">
+                            <Questions />
+                            <StudentNavigation />
+                        </Route>
+                        <Route path="/">
+                            <Login />
+                        </Route>
+                    </Switch>
                 </>
             )}
-        </>
+        </Router>
     );
 };
 
 const mapStateToProps = state => ({
     student: state.student,
-    responses: state.responses,
     isLoading: state.fetch.loadingStudentCount || state.fetch.loadingQuestions
 });
 
@@ -133,12 +87,6 @@ const mapDispatchToProps = dispatch => ({
                 dispatch(fetchFailure(error));
             }
         });
-    },
-    nextStudent: data => {
-        dispatch(movetoNextStudent());
-    },
-    prevStudent: data => {
-        dispatch(movetoPrevStudent());
     }
 });
 
