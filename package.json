@@ -3,6 +3,7 @@
     "scripts": {
         "start": "parcel src/index.html",
         "build": "parcel build src/index.html --experimental-scope-hoisting",
+        "watch": "parcel watch src/index.html",
         "clean": "rm -rf .cache dist"
     },
     "version": "0.0.0",
