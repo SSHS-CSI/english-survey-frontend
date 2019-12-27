@@ -1,7 +1,12 @@
 const React = require("react");
 const { useEffect } = React;
 const { connect } = require("react-redux");
-const { BrowserRouter: Router, Route, Switch } = require("react-router-dom");
+const {
+    BrowserRouter: Router,
+    Route,
+    Switch,
+    useHistory
+} = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
 
 const Login = require("./login.js");
@@ -27,17 +32,21 @@ const {
     pushResponses,
     fetchResponses,
     fetchStudentCount,
-    fetchQuestions
+    fetchQuestions,
 } = require("../../mock");
 
 const App = ({
     student,
+    responses,
     isLoading,
-    fetchData
+    fetchData,
+    fetchResponse
 }) => {
+    const history = useHistory();
     useEffect(fetchData, []);
+    useEffect(() => responses.length > 0 ? undefined : fetchResponse(history), [document.location.href]);
     return (
-        <Router>
+        <>
             <CssBaseline />
             {isLoading ? (
                 <div>Loading...</div>
@@ -51,22 +60,23 @@ const App = ({
                         </Toolbar>
                     </AppBar>
                     <Switch>
-                        <Route path="/survey">
-                            <Questions />
-                            <StudentNavigation />
+                        <Route path="/login">
+                            <Login />
                         </Route>
                         <Route path="/">
-                            <Login />
+                            <Questions />
+                            <StudentNavigation />
                         </Route>
                     </Switch>
                 </>
             )}
-        </Router>
+        </>
     );
 };
 
 const mapStateToProps = state => ({
     student: state.student,
+    responses: state.responses,
     isLoading: state.fetch.loadingStudentCount || state.fetch.loadingQuestions
 });
 
@@ -75,17 +85,46 @@ const mapDispatchToProps = dispatch => ({
         dispatch(fetchBegin());
         dispatch(async () => {
             try {
-                const [studentCount, questions, responses] = await Promise.all([
-                    fetchStudentCount(),
-                    fetchQuestions(),
-                    fetchResponses()
+                const [
+                    studentCountResponse,
+                    questionsResponse
+                ] = await Promise.all([
+                    fetch("/survey/student-count"),
+                    fetch("/survey/questions")
                 ]);
+
+                const [
+                    { status: studentCountStatus, data: studentCount },
+                    { status: questionsStatus, data: questions }
+                ] = await Promise.all([
+                    studentCountResponse.json(),
+                    questionsResponse.json()
+                ]);
+
+                if(!studentCountStatus || !questionsStatus) {
+                    throw new Error();
+                }
+
                 dispatch(fetchStudentCountSuccess(studentCount));
                 dispatch(fetchQuestionsSuccess(questions));
-                dispatch(fetchResponsesSuccess(responses));
             } catch (error) {
                 dispatch(fetchFailure(error));
             }
+        });
+    },
+    fetchResponse: history => {
+        console.log("fetchResponse");
+        dispatch(async () => {
+            const responseResponse = await fetch("/survey/response");
+            if(responseResponse.status === 401) {
+                history.push("/login");
+                return;
+            }
+
+            const responseResult = await responseResponse.json();
+            console.log(responseResult);
+
+            dispatch(fetchResponsesSuccess(responseResult.data.data));
         });
     }
 });

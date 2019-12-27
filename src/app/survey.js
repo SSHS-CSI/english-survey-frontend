@@ -47,11 +47,10 @@ const Survey = ({ questions, response, location, student, updateResponse }) => {
                     const QuestionComponent =
                         type === "objective" ? Objective : Descriptive;
                     return (
-                        response ?
                             <QuestionComponent
                                 key={`survey-${location}-${type}-${index}`}
                                 question={question}
-                                value={response[index][location]}
+                                value={response ? response[index][location] : type === "objective" ? 0 : ""}
                                 onChange={value => {
                                     const newResponse = produce(
                                         response,
@@ -61,7 +60,7 @@ const Survey = ({ questions, response, location, student, updateResponse }) => {
                                     );
                                     updateResponse(newResponse, student);
                                 }}
-                            /> : null
+                            />
                     );
                 })}
             </ol>

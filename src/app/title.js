@@ -6,16 +6,15 @@ const Title = ({
     student
 }) => (
     <Switch>
-        <Route path="/survey">
+        <Route path="/login">Login</Route>
+        <Route path="/">
             Student #{student}
         </Route>
-        <Route path="/">Login</Route>
     </Switch>
 );
 
 const mapStateToProps = state => ({
-    student: state.student,
-    isLoading: state.fetch.loadingStudentCount || state.fetch.loadingQuestions
+    student: state.student
 });
 
 module.exports = connect(mapStateToProps)(Title);

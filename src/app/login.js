@@ -49,7 +49,7 @@ function Login() {
         const json = await response.json();
 
         if (json.status) {
-            history.push("/survey");
+            history.push("/");
         } else {
             setHelperText("Wrong ID! Please try again.");
             setIsLoginFailed(true);
