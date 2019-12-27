@@ -48,7 +48,7 @@ const fetch = (
             return {
                 ...state,
                 loadingResponses: false,
-                responses: payload
+                responses: payload.data
             };
         case FETCH_FAILURE:
             return {
@@ -70,14 +70,16 @@ const responses = (state = [], { type, payload }) => {
                 state[payload.student] = payload.response;
             });
         case FETCH_RESPONSES_SUCCESS:
-            return payload;
+            return payload.data;
         default:
             return state;
     }
 };
 
-const student = (state = 0, { type }) => {
+const student = (state = 0, { type, payload }) => {
     switch (type) {
+        case FETCH_RESPONSES_SUCCESS:
+            return payload.pageNum;
         case MOVETO_NEXTSTUDENT:
             return state + 1;
         case MOVETO_PREVSTUDENT:

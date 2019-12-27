@@ -126,9 +126,7 @@ const mapDispatchToProps = dispatch => ({
             }
 
             const responseResult = await responseResponse.json();
-            console.log(responseResult);
-
-            dispatch(fetchResponsesSuccess(responseResult.data.data));
+            dispatch(fetchResponsesSuccess(responseResult.data));
         });
     }
 });

@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 
 const StudentNavigation = ({
     student,
+    studentCount,
     nextStudent,
     prevStudent,
     responses
@@ -48,6 +49,7 @@ const StudentNavigation = ({
                 <Grid item xs={12} sm={6}>
                     <StudentButton
                         onClick={() => nextStudent({ student, responses })}
+                        disabled={student === studentCount - 1}
                     >
                         Next Student
                     </StudentButton>
@@ -60,6 +62,7 @@ const StudentNavigation = ({
 const mapStateToProps = state => ({
     student: state.student,
     responses: state.responses,
+    studentCount: state.fetch.count
 });
 
 const mapDispatchToProps = dispatch => ({
