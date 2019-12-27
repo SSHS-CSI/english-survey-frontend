@@ -35,12 +35,33 @@ const StudentNavigation = ({
             {...props}
         />
     );
+
+    const saveResponse = async () => {
+        console.log("saveResponse");
+        console.log(responses);
+        const responseResponse = await fetch("/survey/response", {
+            method: "POST",
+            body: JSON.stringify({
+                data: responses[student],
+                pageNum: student
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        const repsonseResult = await responseResponse.json();
+        console.log(repsonseResult);
+    };
+
     return (
         <Container maxWidth="sm">
             <Grid container spacing={2} justify="center">
                 <Grid item xs={12} sm={6}>
                     <StudentButton
-                        onClick={() => prevStudent({ student, responses })}
+                        onClick={() => {
+                            saveResponse();
+                            prevStudent({ student, responses });
+                        }}
                         disabled={student === 0}
                     >
                         Previous Student
@@ -48,7 +69,10 @@ const StudentNavigation = ({
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <StudentButton
-                        onClick={() => nextStudent({ student, responses })}
+                        onClick={() => {
+                            saveResponse();
+                            nextStudent({ student, responses });
+                        }}
                         disabled={student === studentCount - 1}
                     >
                         Next Student
