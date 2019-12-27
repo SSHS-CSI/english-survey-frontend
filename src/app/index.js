@@ -9,6 +9,7 @@ const {
 } = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
 
+const Admin = require("./admin.js");
 const Login = require("./login.js");
 const Title = require("./title.js");
 const Questions = require("./questions.js");
@@ -44,7 +45,7 @@ const App = ({
 }) => {
     const history = useHistory();
     useEffect(fetchData, []);
-    useEffect(() => responses.length > 0 ? undefined : fetchResponse(history), [document.location.href]);
+    useEffect(() => document.location.pathname === "/" && responses.length === 0 ? fetchResponse(history) : undefined , [document.location.href]);
     return (
         <>
             <CssBaseline />
@@ -60,6 +61,9 @@ const App = ({
                         </Toolbar>
                     </AppBar>
                     <Switch>
+                        <Route path="/admin">
+                            <Admin />
+                        </Route>
                         <Route path="/login">
                             <Login />
                         </Route>

@@ -43,6 +43,10 @@ const Survey = ({ questions, response, location, student, updateResponse }) => {
     return (
         <Card>
             <ol className={classes.orderedList}>
+                <audio
+                    controls
+                    src={`/audio/student.${student}.mp3`}>
+                </audio>
                 {questions.map(({ type, ...question }, index) => {
                     const QuestionComponent =
                         type === "objective" ? Objective : Descriptive;

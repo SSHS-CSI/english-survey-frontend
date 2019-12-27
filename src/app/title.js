@@ -6,6 +6,7 @@ const Title = ({
     student
 }) => (
     <Switch>
+        <Route path="/admin">Administrator Page</Route>
         <Route path="/login">Login</Route>
         <Route path="/">
             Student #{student}

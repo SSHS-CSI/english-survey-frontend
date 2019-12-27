@@ -1,7 +1,7 @@
 const React = require("react");
 const { useState } = require("react");
 const { makeStyles, useTheme } = require("@material-ui/core/styles");
-const { useHistory } = require("react-router-dom");
+const { useHistory, Link } = require("react-router-dom");
 
 const Paper = require("@material-ui/core/Paper").default;
 const TextField = require("@material-ui/core/TextField").default;
@@ -77,6 +77,7 @@ function Login() {
             >
                 Login
             </Button>
+            <Link to="/admin">Admin</Link>
         </Paper>
     );
 }
