@@ -63,7 +63,7 @@ function Admin() {
             if (result.status != "success") {
                 console.log("Something Wrong...");
             } else {
-                setIdList(result.data.map(el => el.username));
+                setIdList(result.data.filter(user => user.type !== 0).map(el => el.username));
             }
         }
         getIdList();
