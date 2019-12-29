@@ -1,10 +1,14 @@
 const React = require("react");
+const { useState } = React;
+const { default: useInterval } = require("@use-it/interval");
 const { connect } = require("react-redux");
 const { makeStyles } = require("@material-ui/core/styles");
 
 const Button = require("@material-ui/core/Button").default;
 const Container = require("@material-ui/core/Container").default;
 const Grid = require("@material-ui/core/Grid").default;
+const Hidden = require("@material-ui/core/Hidden").default;
+const CircularProgress = require("@material-ui/core/CircularProgress").default;
 
 const {
     movetoNextStudent,
@@ -18,6 +22,12 @@ const useStyles = makeStyles(theme => ({
     },
     studentButton: {
         width: "100%"
+    },
+    saveButton: {
+        height: 36
+    },
+    saveProgress: {
+        marginRight: theme.spacing(1)
     }
 }));
 
@@ -31,10 +41,11 @@ const StudentNavigation = ({
     dispatchSaveResponse
 }) => {
     const classes = useStyles();
-    const StudentButton = ({ ...props }) => (
+    const [isSaving, setIsSaving] = useState(false);
+    const StudentButton = ({ className, ...props }) => (
         <Button
             variant="contained"
-            className={classes.studentButton}
+            className={`${classes.studentButton} ${className || ""}`}
             {...props}
         />
     );
@@ -46,6 +57,7 @@ const StudentNavigation = ({
             console.log("shouldSaveResponse = ", shouldSaveResponse);
             return;
         }
+        setIsSaving(true);
         dispatchSaveResponse();
         const responseResponse = await fetch("/survey/response", {
             method: "POST",
@@ -58,13 +70,19 @@ const StudentNavigation = ({
             }
         });
         const repsonseResult = await responseResponse.json();
+        setIsSaving(false);
         console.log(repsonseResult);
     };
 
+    useInterval(saveResponse, 6000);
+
     return (
-        <Container maxWidth="sm">
+        <Container>
             <Grid container spacing={2} justify="center">
-                <Grid item xs={12} sm={6}>
+                <Hidden xsDown>
+                    <Grid item sm={2} />
+                </Hidden>
+                <Grid item xs={12} sm={4}>
                     <StudentButton
                         onClick={() => {
                             saveResponse();
@@ -75,7 +93,7 @@ const StudentNavigation = ({
                         Previous Student
                     </StudentButton>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={4}>
                     <StudentButton
                         onClick={() => {
                             saveResponse();
@@ -84,6 +102,16 @@ const StudentNavigation = ({
                         disabled={student === studentCount - 1}
                     >
                         Next Student
+                    </StudentButton>
+                </Grid>
+                <Grid item xs={12} sm={2}>
+                    <StudentButton disabled={!shouldSaveResponse} onClick={saveResponse} className={isSaving && classes.saveButton}>
+                        {!isSaving ? "Save Response" : 
+                         <>
+                             <CircularProgress size={16} className={classes.saveProgress} />
+                             Saving...
+                         </>
+                        }
                     </StudentButton>
                 </Grid>
             </Grid>
