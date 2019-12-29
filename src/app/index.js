@@ -29,13 +29,6 @@ const {
     fetchFailure
 } = require("./actions.js");
 
-const {
-    pushResponses,
-    fetchResponses,
-    fetchStudentCount,
-    fetchQuestions,
-} = require("../../mock");
-
 const App = ({
     student,
     responses,
