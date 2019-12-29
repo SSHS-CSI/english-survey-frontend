@@ -69,11 +69,16 @@ function Admin() {
         getIdList();
     }, [neededtoUpdate]);
 
-    const copyToClipBoard = e => {
-        idRef.current.select();
-        document.execCommand('copy');
-        e.target.focus();
-    }
+    const copyToClipBoard = text => {
+        const el = document.createElement("textarea");
+        el.value = text;
+        document.body.append(el);
+        el.style.position="fixed";
+        el.focus();
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+    };
 
     return (
         <Paper>
@@ -101,7 +106,7 @@ function Admin() {
             </Button>
             <List className={classes.idList}>
                 {idList.map((id, index) => (
-                    <ListItem button key={id}>
+                    <ListItem button key={id} onClick={() => copyToClipBoard(id)}>
                         {index + 1}. {id}
                     </ListItem>
                 ))}
