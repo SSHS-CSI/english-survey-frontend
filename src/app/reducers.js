@@ -7,7 +7,9 @@ const {
     FETCH_FAILURE,
     UPDATE_RESPONSE,
     MOVETO_NEXTSTUDENT,
-    MOVETO_PREVSTUDENT
+    MOVETO_PREVSTUDENT,
+    SAVE_RESPONSE,
+    EDIT_RESPONSE
 } = require("./actions.js");
 const { default: produce } = require("immer");
 
@@ -89,11 +91,25 @@ const student = (state = 0, { type, payload }) => {
     }
 };
 
+const shouldSaveResponse = (state = false, { type }) => {
+    switch (type) {
+        case SAVE_RESPONSE:
+            return false;
+        case EDIT_RESPONSE:
+            return true;
+        case FETCH_RESPONSES_SUCCESS:
+            return false;
+        default:
+            return state;
+    }
+};
+
 // - Root Reducer
 const rootReducer = combineReducers({
     fetch,
     responses,
-    student
+    student,
+    shouldSaveResponse
 });
 
 module.exports = rootReducer;

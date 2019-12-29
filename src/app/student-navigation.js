@@ -8,7 +8,8 @@ const Grid = require("@material-ui/core/Grid").default;
 
 const {
     movetoNextStudent,
-    movetoPrevStudent
+    movetoPrevStudent,
+    saveResponse
 } = require("./actions.js");
 
 const useStyles = makeStyles(theme => ({
@@ -25,7 +26,9 @@ const StudentNavigation = ({
     studentCount,
     nextStudent,
     prevStudent,
-    responses
+    responses,
+    shouldSaveResponse,
+    dispatchSaveResponse
 }) => {
     const classes = useStyles();
     const StudentButton = ({ ...props }) => (
@@ -39,6 +42,11 @@ const StudentNavigation = ({
     const saveResponse = async () => {
         console.log("saveResponse");
         console.log(responses);
+        if(!shouldSaveResponse) {
+            console.log("shouldSaveResponse = ", shouldSaveResponse);
+            return;
+        }
+        dispatchSaveResponse();
         const responseResponse = await fetch("/survey/response", {
             method: "POST",
             body: JSON.stringify({
@@ -86,7 +94,8 @@ const StudentNavigation = ({
 const mapStateToProps = state => ({
     student: state.student,
     responses: state.responses,
-    studentCount: state.fetch.count
+    studentCount: state.fetch.count,
+    shouldSaveResponse: state.shouldSaveResponse
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -95,6 +104,9 @@ const mapDispatchToProps = dispatch => ({
     },
     prevStudent: () => {
         dispatch(movetoPrevStudent());
+    },
+    dispatchSaveResponse: () => {
+        dispatch(saveResponse());
     }
 });
 

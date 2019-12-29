@@ -5,7 +5,7 @@ const { default: produce } = require("immer");
 
 const Card = require("@material-ui/core/Card").default;
 
-const { updateResponse } = require("./actions.js");
+const { updateResponse, editResponse } = require("./actions.js");
 const Objective = require("./objective.js");
 const Descriptive = require("./descriptive.js");
 
@@ -35,10 +35,11 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     updateResponse: (response, student) => {
         dispatch(updateResponse(response, student));
-    }
+    },
+    editResponse: () => dispatch(editResponse())
 });
 
-const Survey = ({ questions, response, location, student, updateResponse }) => {
+const Survey = ({ questions, response, location, student, updateResponse, editResponse }) => {
     const classes = useStyles();
     return (
         <Card>
@@ -56,6 +57,7 @@ const Survey = ({ questions, response, location, student, updateResponse }) => {
                                 question={question}
                                 value={response ? response[index][location] : type === "objective" ? 0 : ""}
                                 onChange={value => {
+                                    editResponse();
                                     const newResponse = produce(
                                         response,
                                         response => {

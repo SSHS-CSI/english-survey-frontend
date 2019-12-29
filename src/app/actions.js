@@ -7,6 +7,8 @@ const FETCH_FAILURE = "FETCH_FAILURE";
 const UPDATE_RESPONSE = "UPDATE_RESPONSE";
 const MOVETO_NEXTSTUDENT = "MOVETO_NEXTSTUDENT";
 const MOVETO_PREVSTUDENT = "MOVETO_PREVSTUDENT";
+const SAVE_RESPONSE = "SAVE_RESPONSE";
+const EDIT_RESPONSE = "EDIT_RESPONSE";
 
 // - Action Creators
 const fetchBegin = () => ({ type: FETCH_BEGIN });
@@ -32,6 +34,8 @@ const updateResponse = (response, student) => ({
 });
 const movetoNextStudent = () => ({ type: MOVETO_NEXTSTUDENT });
 const movetoPrevStudent = () => ({ type: MOVETO_PREVSTUDENT });
+const saveResponse = () => ({ type: SAVE_RESPONSE });
+const editResponse = () => ({ type: EDIT_RESPONSE });
 
 module.exports = {
     FETCH_BEGIN,
@@ -42,6 +46,8 @@ module.exports = {
     UPDATE_RESPONSE,
     MOVETO_NEXTSTUDENT,
     MOVETO_PREVSTUDENT,
+    SAVE_RESPONSE,
+    EDIT_RESPONSE,
     fetchBegin,
     fetchStudentCountSuccess,
     fetchQuestionsSuccess,
@@ -49,5 +55,7 @@ module.exports = {
     fetchFailure,
     updateResponse,
     movetoNextStudent,
-    movetoPrevStudent
+    movetoPrevStudent,
+    saveResponse,
+    editResponse
 };
