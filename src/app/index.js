@@ -8,6 +8,8 @@ const {
     useHistory
 } = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
+const { default: BlockUi } = require("react-block-ui");
+require("react-block-ui/style.css");
 
 const Admin = require("./admin.js");
 const Login = require("./login.js");
@@ -20,6 +22,7 @@ const Button = require("@material-ui/core/Button").default;
 const Toolbar = require("@material-ui/core/Toolbar").default;
 const Typography = require("@material-ui/core/Typography").default;
 const CssBaseline = require("@material-ui/core/CssBaseline").default;
+const CircularProgress = require("@material-ui/core/CircularProgress").default;
 
 const {
     fetchBegin,
@@ -42,31 +45,27 @@ const App = ({
     return (
         <>
             <CssBaseline />
-            {isLoading ? (
-                <div>Loading...</div>
-            ) : (
-                <>
-                    <AppBar position="static">
-                        <Toolbar>
-                            <Typography variant="h6">
-                                <Title />
-                            </Typography>
-                        </Toolbar>
-                    </AppBar>
-                    <Switch>
-                        <Route path="/admin">
-                            <Admin />
-                        </Route>
-                        <Route path="/login">
-                            <Login />
-                        </Route>
-                        <Route path="/">
-                            <Questions />
-                            <StudentNavigation />
-                        </Route>
-                    </Switch>
-                </>
-            )}
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6">
+                        <Title />
+                    </Typography>
+                </Toolbar>
+            </AppBar>
+            <BlockUi blocking={isLoading} loader={<CircularProgress />}>
+                <Switch>
+                    <Route path="/admin">
+                        <Admin />
+                    </Route>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+                    <Route path="/">
+                        <Questions />
+                        <StudentNavigation />
+                    </Route>
+                </Switch>
+            </BlockUi>
         </>
     );
 };
