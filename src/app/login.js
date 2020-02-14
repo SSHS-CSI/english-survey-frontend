@@ -55,7 +55,7 @@ function Login({ isAuthorized, loginSuccess }) {
                 history.push("/admin");
             } else if (json.status) {
                 loginSuccess();
-                history.push("/");
+                history.push("/explanation");
             }
         })();
     }, []);
@@ -81,7 +81,7 @@ function Login({ isAuthorized, loginSuccess }) {
             history.push("/admin");
         } else {
             loginSuccess();
-            history.push("/");
+            history.push("/explanation");
         }
     };
 

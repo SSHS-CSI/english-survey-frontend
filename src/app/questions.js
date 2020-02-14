@@ -1,11 +1,7 @@
 const React = require("react");
 const { useEffect } = React;
 const { connect } = require("react-redux");
-const {
-    BrowserRouter: Router,
-    Route,
-    useHistory
-} = require("react-router-dom");
+const { useHistory } = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
 
 const Survey = require("./survey.js");

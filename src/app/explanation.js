@@ -1,5 +1,6 @@
 const React = require("react");
 const { makeStyles } = require("@material-ui/core/styles");
+const { useHistory } = require("react-router-dom");
 
 const Container = require("@material-ui/core/Container").default;
 const Button = require("@material-ui/core/Button").default;
@@ -16,6 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const Explanation = () => {
     const classes = useStyles();
+    const history = useHistory();
     return (
         <Container className={classes.explanationContainer}>
             <Card>
@@ -43,7 +45,7 @@ const Explanation = () => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary">I understood.</Button>
+                    <Button variant="contained" color="primary" onClick={() => history.push("/")}>I understood.</Button>
                 </CardActions>
             </Card>
         </Container>

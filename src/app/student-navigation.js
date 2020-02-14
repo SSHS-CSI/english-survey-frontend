@@ -1,6 +1,7 @@
 const React = require("react");
 const { useState } = React;
 const { default: useInterval } = require("@use-it/interval");
+const { useHistory } = require("react-router-dom");
 const { connect } = require("react-redux");
 const { makeStyles } = require("@material-ui/core/styles");
 
@@ -41,6 +42,7 @@ const StudentNavigation = ({
     dispatchSaveResponse
 }) => {
     const classes = useStyles();
+    const history = useHistory();
     const [isSaving, setIsSaving] = useState(false);
     const StudentButton = ({ className, ...props }) => (
         <Button
@@ -79,9 +81,11 @@ const StudentNavigation = ({
     return (
         <Container>
             <Grid container spacing={2} justify="center">
-                <Hidden xsDown>
-                    <Grid item sm={2} />
-                </Hidden>
+                <Grid item xs={12} sm={2}>
+                    <StudentButton onClick={() => history.push("/explanation")}>
+                        Explanation
+                    </StudentButton>
+                </Grid>
                 <Grid item xs={12} sm={4}>
                     <StudentButton
                         onClick={() => {
