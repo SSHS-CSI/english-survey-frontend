@@ -104,12 +104,22 @@ const shouldSaveResponse = (state = false, { type }) => {
     }
 };
 
+const isAuthorized = (state = false, { type }) => {
+    switch (type) {
+    case FETCH_RESPONSES_SUCCESS:
+        return true;
+    default:
+        return state;
+    }
+};
+
 // - Root Reducer
 const rootReducer = combineReducers({
     fetch,
     responses,
     student,
-    shouldSaveResponse
+    shouldSaveResponse,
+    isAuthorized
 });
 
 module.exports = rootReducer;

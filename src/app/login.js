@@ -1,12 +1,19 @@
 const React = require("react");
-const { useState } = require("react");
+const { useState, useEffect } = require("react");
+const { connect } = require("react-redux");
 const { makeStyles, useTheme } = require("@material-ui/core/styles");
 const { useHistory } = require("react-router-dom");
+const { default: BlockUi } = require("react-block-ui");
 
 const Paper = require("@material-ui/core/Paper").default;
 const TextField = require("@material-ui/core/TextField").default;
 const Typography = require("@material-ui/core/Typography").default;
 const Button = require("@material-ui/core/Button").default;
+const CircularProgress = require("@material-ui/core/CircularProgress").default;
+
+const {
+    loginSuccess
+} = require("./actions.js");
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,13 +34,31 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Login() {
+function Login({ isAuthorized, loginSuccess }) {
     const classes = useStyles();
     const [inputId, setInputId] = useState("");
     const [isLoginFailed, setIsLoginFailed] = useState(false);
     const [helperText, setHelperText] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     let history = useHistory();
+
+    useEffect(() => {
+        (async () => {
+            setIsLoading(true);
+            const response = await fetch("/auth/check");
+            const json = await response.json();
+            setIsLoading(false);
+
+            if(json.isAdmin) {
+                loginSuccess();
+                history.push("/admin");
+            } else if (json.status) {
+                loginSuccess();
+                history.push("/");
+            }
+        })();
+    }, []);
 
     const checkId = async () => {
         const response = await fetch("/auth/login", {
@@ -51,36 +76,48 @@ function Login() {
         if(!json.status) {
             setHelperText("Wrong ID! Please try again.");
             setIsLoginFailed(true);
-        } else if (json.isAdmin) {
+        } else if(json.isAdmin) {
+            loginSuccess();
             history.push("/admin");
         } else {
+            loginSuccess();
             history.push("/");
         }
     };
 
     return (
-        <Paper className={classes.root}>
-            <Typography className={classes.typography}>
-                Please enter your ID
-            </Typography>
-            <TextField
-                label="ID"
-                variant="outlined"
-                value={inputId}
-                onChange={e => setInputId(e.target.value)}
-                error={isLoginFailed}
-                helperText={helperText}
-            />
-            <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={checkId}
-                className={classes.button}
-            >
-                Login
-            </Button>
-        </Paper>
+        <BlockUi blocking={isLoading} loader={<CircularProgress />}>
+            <Paper className={classes.root}>
+                <Typography className={classes.typography}>
+                    Please enter your ID
+                </Typography>
+                <TextField
+                    label="ID"
+                    variant="outlined"
+                    value={inputId}
+                    onChange={e => setInputId(e.target.value)}
+                    error={isLoginFailed}
+                    helperText={helperText}
+                />
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={checkId}
+                    className={classes.button}
+                >
+                    Login
+                </Button>
+            </Paper>
+        </BlockUi>
     );
 }
 
-module.exports = Login;
+const mapStateToProps = state => ({
+    isAuthorized: state.isAuthorized
+});
+
+const mapDispatchToProps = dispatch => ({
+    loginSuccess: () => dispatch(loginSuccess())
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Login);

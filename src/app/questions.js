@@ -1,7 +1,11 @@
 const React = require("react");
 const { useEffect } = React;
 const { connect } = require("react-redux");
-const { BrowserRouter: Router, Route } = require("react-router-dom");
+const {
+    BrowserRouter: Router,
+    Route,
+    useHistory
+} = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
 
 const Survey = require("./survey.js");
@@ -10,14 +14,17 @@ const Button = require("@material-ui/core/Button").default;
 const Container = require("@material-ui/core/Container").default;
 const Grid = require("@material-ui/core/Grid").default;
 
+const { fetchResponsesSuccess } = require("./actions.js");
+
 const useStyles = makeStyles(theme => ({
     surveyContainer: {
         marginTop: theme.spacing(2)
     }
 }));
 
-const Questions = ({
-}) => {
+const Questions = ({ fetchResponse }) => {
+    const history = useHistory();
+    useEffect(() => fetchResponse(history), []);
     const classes = useStyles();
     return (
         <Container className={classes.surveyContainer}>
@@ -38,4 +45,19 @@ const mapStateToProps = state => ({
     responses: state.responses,
 });
 
-module.exports = connect(mapStateToProps)(Questions);
+const mapDispatchToProps = dispatch => ({
+    fetchResponse: history => {
+        dispatch(async () => {
+            const responseResponse = await fetch("/survey/response");
+            if(responseResponse.status === 401) {
+                history.push("/login");
+                return;
+            }
+
+            const responseResult = await responseResponse.json();
+            dispatch(fetchResponsesSuccess(responseResult.data));
+        });
+    }
+});
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Questions);

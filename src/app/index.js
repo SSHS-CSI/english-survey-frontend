@@ -16,6 +16,7 @@ const Login = require("./login.js");
 const Title = require("./title.js");
 const Questions = require("./questions.js");
 const StudentNavigation = require("./student-navigation.js");
+const Explanation = require("./explanation.js");
 
 const AppBar = require("@material-ui/core/AppBar").default;
 const Button = require("@material-ui/core/Button").default;
@@ -28,20 +29,11 @@ const {
     fetchBegin,
     fetchStudentCountSuccess,
     fetchQuestionsSuccess,
-    fetchResponsesSuccess,
     fetchFailure
 } = require("./actions.js");
 
-const App = ({
-    student,
-    responses,
-    isLoading,
-    fetchData,
-    fetchResponse
-}) => {
-    const history = useHistory();
+const App = ({ isLoading, fetchData }) => {
     useEffect(fetchData, []);
-    useEffect(() => document.location.pathname === "/" && responses.length === 0 ? fetchResponse(history) : undefined , [document.location.href]);
     return (
         <>
             <CssBaseline />
@@ -59,6 +51,9 @@ const App = ({
                     </Route>
                     <Route path="/login">
                         <Login />
+                    </Route>
+                    <Route path="/explanation">
+                        <Explanation />
                     </Route>
                     <Route path="/">
                         <Questions />
@@ -106,19 +101,6 @@ const mapDispatchToProps = dispatch => ({
             } catch (error) {
                 dispatch(fetchFailure(error));
             }
-        });
-    },
-    fetchResponse: history => {
-        console.log("fetchResponse");
-        dispatch(async () => {
-            const responseResponse = await fetch("/survey/response");
-            if(responseResponse.status === 401) {
-                history.push("/login");
-                return;
-            }
-
-            const responseResult = await responseResponse.json();
-            dispatch(fetchResponsesSuccess(responseResult.data));
         });
     }
 });

@@ -9,6 +9,7 @@ const MOVETO_NEXTSTUDENT = "MOVETO_NEXTSTUDENT";
 const MOVETO_PREVSTUDENT = "MOVETO_PREVSTUDENT";
 const SAVE_RESPONSE = "SAVE_RESPONSE";
 const EDIT_RESPONSE = "EDIT_RESPONSE";
+const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
 // - Action Creators
 const fetchBegin = () => ({ type: FETCH_BEGIN });
@@ -36,6 +37,7 @@ const movetoNextStudent = () => ({ type: MOVETO_NEXTSTUDENT });
 const movetoPrevStudent = () => ({ type: MOVETO_PREVSTUDENT });
 const saveResponse = () => ({ type: SAVE_RESPONSE });
 const editResponse = () => ({ type: EDIT_RESPONSE });
+const loginSuccess = () => ({ type: LOGIN_SUCCESS });
 
 module.exports = {
     FETCH_BEGIN,
@@ -48,6 +50,7 @@ module.exports = {
     MOVETO_PREVSTUDENT,
     SAVE_RESPONSE,
     EDIT_RESPONSE,
+    LOGIN_SUCCESS,
     fetchBegin,
     fetchStudentCountSuccess,
     fetchQuestionsSuccess,
@@ -57,5 +60,6 @@ module.exports = {
     movetoNextStudent,
     movetoPrevStudent,
     saveResponse,
-    editResponse
+    editResponse,
+    loginSuccess
 };
