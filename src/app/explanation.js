@@ -25,6 +25,11 @@ const Explanation = () => {
                     <Typography variant="body1" gutterBottom>
                         You will hear Korean second language learners of English speaking on a narrative description task. Students were asked to narrate nine-frame pictures making a single coherent story. The task was administered and audiotaped at Time 1 and again 13 weeks later at Time 2. The two excerpts were randomly paired across time (T1/T2 or T2/T1) in a single aural stimulus, separated by a tone.
                     </Typography>
+                    <img src="/static/ex.jpg" style={{
+                        float: "right",
+                        width: "100%",
+                        maxWidth: 320
+                    }}></img>
                     <Typography variant="body1" gutterBottom>
                         All of the speech samples are about one minute long. I would like you to make a fluency judgment about each paired sample.
                     </Typography>
