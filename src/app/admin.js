@@ -59,9 +59,7 @@ function Admin() {
         async function getIdList() {
             const response = await fetch("/master/active");
             const result = await response.json();
-            console.log(result.status);
             if (result.status != "success") {
-                console.log("Something Wrong...");
             } else {
                 setIdList(result.data.filter(user => user.type !== 0).map(el => el.username));
             }

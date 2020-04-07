@@ -53,10 +53,7 @@ const StudentNavigation = ({
     );
 
     const saveResponse = async () => {
-        console.log("saveResponse");
-        console.log(responses);
         if(!shouldSaveResponse) {
-            console.log("shouldSaveResponse = ", shouldSaveResponse);
             return;
         }
         setIsSaving(true);
@@ -73,7 +70,6 @@ const StudentNavigation = ({
         });
         const repsonseResult = await responseResponse.json();
         setIsSaving(false);
-        console.log(repsonseResult);
     };
 
     useInterval(saveResponse, 6000);
