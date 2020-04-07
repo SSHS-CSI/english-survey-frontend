@@ -8,6 +8,7 @@ const { makeStyles } = require("@material-ui/core/styles");
 const Button = require("@material-ui/core/Button").default;
 const Container = require("@material-ui/core/Container").default;
 const Grid = require("@material-ui/core/Grid").default;
+const Snackbar = require("@material-ui/core/Snackbar").default;
 const Hidden = require("@material-ui/core/Hidden").default;
 const CircularProgress = require("@material-ui/core/CircularProgress").default;
 
@@ -44,6 +45,7 @@ const StudentNavigation = ({
     const classes = useStyles();
     const history = useHistory();
     const [isSaving, setIsSaving] = useState(false);
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const StudentButton = ({ className, ...props }) => (
         <Button
             variant="contained"
@@ -76,6 +78,7 @@ const StudentNavigation = ({
 
     return (
         <Container>
+            <Snackbar open={isSnackbarOpen} autoHideDuration={6000} onClose={() => setIsSnackbarOpen(false)} message="The survey is finished! You may safely close this window. You can come and edit your response any time." />
             <Grid container spacing={2} justify="center">
                 <Grid item xs={12} sm={2}>
                     <StudentButton onClick={() => history.push("/explanation")}>
@@ -95,13 +98,16 @@ const StudentNavigation = ({
                 </Grid>
                 <Grid item xs={12} sm={4}>
                     <StudentButton
-                        onClick={() => {
-                            saveResponse();
-                            nextStudent({ student, responses });
+                        onClick={async () => {
+                            await saveResponse();
+                            if(student === studentCount - 1) {
+                                setIsSnackbarOpen(true);
+                            } else {
+                                nextStudent({ student, responses });
+                            }
                         }}
-                        disabled={student === studentCount - 1}
                     >
-                        Next Student
+                        {student === studentCount - 1 ? "Finish Survey!" : "Next Student"}
                     </StudentButton>
                 </Grid>
                 <Grid item xs={12} sm={2}>
