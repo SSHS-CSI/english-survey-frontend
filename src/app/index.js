@@ -29,19 +29,35 @@ const {
     fetchBegin,
     fetchStudentCountSuccess,
     fetchQuestionsSuccess,
-    fetchFailure
+    fetchFailure,
+    logoutSuccess
 } = require("./actions.js");
 
-const App = ({ isLoading, fetchData }) => {
+const useStyles = makeStyles({
+    title: {
+        flexGrow: 1
+    }
+});
+
+const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
+    const classes = useStyles();
     useEffect(fetchData, []);
+    const history = useHistory();
     return (
         <>
             <CssBaseline />
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.title}>
                         <Title />
                     </Typography>
+                    {isAuthorized && <Button color="inherit" onClick={async () => {
+                        await fetch("/auth/logout", {
+                            method: "POST"
+                        });
+                        logoutSuccess();
+                        history.push("/login");
+                    }}>Logout</Button>}
                 </Toolbar>
             </AppBar>
             <BlockUi blocking={isLoading} loader={<CircularProgress />}>
@@ -68,10 +84,12 @@ const App = ({ isLoading, fetchData }) => {
 const mapStateToProps = state => ({
     student: state.student,
     responses: state.responses,
-    isLoading: state.fetch.loadingStudentCount || state.fetch.loadingQuestions
+    isLoading: state.fetch.loadingStudentCount || state.fetch.loadingQuestions,
+    isAuthorized: state.isAuthorized
 });
 
 const mapDispatchToProps = dispatch => ({
+    logoutSuccess: () => dispatch(logoutSuccess()),
     fetchData: () => {
         dispatch(fetchBegin());
         dispatch(async () => {

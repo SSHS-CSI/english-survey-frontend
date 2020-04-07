@@ -9,7 +9,9 @@ const {
     MOVETO_NEXTSTUDENT,
     MOVETO_PREVSTUDENT,
     SAVE_RESPONSE,
-    EDIT_RESPONSE
+    EDIT_RESPONSE,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS
 } = require("./actions.js");
 const { default: produce } = require("immer");
 
@@ -108,6 +110,10 @@ const isAuthorized = (state = false, { type }) => {
     switch (type) {
     case FETCH_RESPONSES_SUCCESS:
         return true;
+    case LOGIN_SUCCESS:
+        return true;
+    case LOGOUT_SUCCESS:
+        return false;
     default:
         return state;
     }
