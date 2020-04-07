@@ -50,7 +50,7 @@ function Login({ isAuthorized, loginSuccess }) {
             const json = await response.json();
             setIsLoading(false);
 
-            if(json.isAdmin) {
+            if(json.type === "admin") {
                 loginSuccess();
                 history.push("/admin");
             } else if (json.status) {
@@ -76,7 +76,7 @@ function Login({ isAuthorized, loginSuccess }) {
         if(!json.status) {
             setHelperText("Wrong ID! Please try again.");
             setIsLoginFailed(true);
-        } else if(json.isAdmin) {
+        } else if(json.type === "admin") {
             loginSuccess();
             history.push("/admin");
         } else {

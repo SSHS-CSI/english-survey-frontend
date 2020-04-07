@@ -48,6 +48,9 @@ const mapDispatchToProps = dispatch => ({
             if(responseResponse.status === 401) {
                 history.push("/login");
                 return;
+            } else if (responseResponse.status === 404) {
+                history.push("/admin");
+                return;
             }
 
             const responseResult = await responseResponse.json();
