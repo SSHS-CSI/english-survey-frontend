@@ -10,7 +10,10 @@ const Button = require("@material-ui/core/Button").default;
 const Container = require("@material-ui/core/Container").default;
 const Grid = require("@material-ui/core/Grid").default;
 
-const { fetchResponsesSuccess } = require("./actions.js");
+const {
+    fetchResponsesSuccess,
+    loginSuccess
+} = require("./actions.js");
 
 const useStyles = makeStyles(theme => ({
     surveyContainer: {
@@ -49,6 +52,7 @@ const mapDispatchToProps = dispatch => ({
                 history.push("/login");
                 return;
             } else if (responseResponse.status === 404) {
+                dispatch(loginSuccess());
                 history.push("/admin");
                 return;
             }
