@@ -17,6 +17,7 @@ const Title = require("./title.js");
 const Questions = require("./questions.js");
 const StudentNavigation = require("./student-navigation.js");
 const Explanation = require("./explanation.js");
+const SignUp = require("./signup.js");
 
 const AppBar = require("@material-ui/core/AppBar").default;
 const Button = require("@material-ui/core/Button").default;
@@ -71,6 +72,9 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                     <Route path="/explanation">
                         <Explanation />
                     </Route>
+		    <Route path="/signup">
+		        <SignUp />
+		    </Route>
                     <Route path="/">
                         <Questions />
                         <StudentNavigation />

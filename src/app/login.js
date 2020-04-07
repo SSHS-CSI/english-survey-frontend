@@ -92,7 +92,7 @@ function Login({ isAuthorized, loginSuccess }) {
                     Please enter your ID
                 </Typography>
                 <TextField
-                    label="ID"
+                    label="Username"
                     variant="outlined"
                     value={inputId}
                     onChange={e => setInputId(e.target.value)}
@@ -107,7 +107,15 @@ function Login({ isAuthorized, loginSuccess }) {
                 >
                     Login
                 </Button>
-            </Paper>
+	        <Button 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={e => history.push("/signup")}
+                    className={classes.button}
+                >
+                    Sign up
+                </Button>
+	    </Paper>
         </BlockUi>
     );
 }

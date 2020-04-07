@@ -9,6 +9,7 @@ const Title = ({
         <Route path="/admin">Administrator Page</Route>
         <Route path="/login">Login</Route>
         <Route path="/explanation">Explanation</Route>
+	<Route path="/signup">Sign Up</Route>
         <Route path="/">
             Student #{student + 1}
         </Route>
