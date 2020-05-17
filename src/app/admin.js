@@ -1,15 +1,12 @@
 const React = require("react");
-const { useState, useEffect, useRef } = require("react");
-const { makeStyles, useTheme } = require("@material-ui/core/styles");
+const { useState, useEffect } = require("react");
+const { makeStyles } = require("@material-ui/core/styles");
 const nanoid = require("nanoid");
 
 const Paper = require("@material-ui/core/Paper").default;
 const TextField = require("@material-ui/core/TextField").default;
 const Typography = require("@material-ui/core/Typography").default;
 const Button = require("@material-ui/core/Button").default;
-const AppBar = require("@material-ui/core/AppBar").default;
-const Toolbar = require("@material-ui/core/Toolbar").default;
-const CssBaseline = require("@material-ui/core/CssBaseline").default;
 const List = require("@material-ui/core/List").default;
 const ListItem = require("@material-ui/core/ListItem").default;
 
@@ -32,7 +29,6 @@ function Admin() {
     const [neededtoUpdate, setNeededtoUpdate] = useState(false);
 
     const IdGenerate = count => {
-        let numcount = parseInt(count);
         if (count <= 0) {
             setIsInvalid(true);
             setHelpertext("Invalid number... Please enter positive number");
@@ -49,11 +45,11 @@ function Admin() {
                     headers: {
                         "Content-Type": "application/json"
                     }
-                })
+                });
             }
             setNeededtoUpdate(!neededtoUpdate);
         }
-    }
+    };
 
     useEffect(() => {
         async function getIdList() {

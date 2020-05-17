@@ -1,10 +1,11 @@
 const React = require("react");
-const { makeStyles, useTheme } = require("@material-ui/core/styles");
+const { makeStyles } = require("@material-ui/core/styles");
 
-const Slider = require("@material-ui/core/Slider").default;
 const CardActions = require("@material-ui/core/CardActions").default;
 const CardContent = require("@material-ui/core/CardContent").default;
 const Typography = require("@material-ui/core/Typography").default;
+
+const Slider = require("./slider.js");
 
 const useStyles = makeStyles(theme => ({
     cardActions: {

@@ -6,7 +6,6 @@ const { makeStyles } = require("@material-ui/core/styles");
 
 const Survey = require("./survey.js");
 
-const Button = require("@material-ui/core/Button").default;
 const Container = require("@material-ui/core/Container").default;
 const Grid = require("@material-ui/core/Grid").default;
 

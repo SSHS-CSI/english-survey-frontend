@@ -72,9 +72,9 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                     <Route path="/explanation">
                         <Explanation />
                     </Route>
-		    <Route path="/signup">
-		        <SignUp />
-		    </Route>
+                    <Route path="/signup">
+                        <SignUp />
+                    </Route>
                     <Route path="/">
                         <Questions />
                         <StudentNavigation />

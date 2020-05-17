@@ -50,23 +50,23 @@ const Survey = ({ questions, response, location, student, updateResponse, editRe
                 </audio>
                 {questions.map(({ type, ...question }, index) => {
                     const QuestionComponent =
-                        type === "objective" ? Objective : Descriptive;
+                          type === "objective" ? Objective : Descriptive;
                     return (
-                            <QuestionComponent
-                                key={`survey-${location}-${type}-${index}`}
-                                question={question}
-                                value={response ? response[index][location] : type === "objective" ? 0 : ""}
-                                onChange={value => {
-                                    editResponse();
-                                    const newResponse = produce(
-                                        response,
-                                        response => {
-                                            response[index][location] = value;
-                                        }
-                                    );
-                                    updateResponse(newResponse, student);
-                                }}
-                            />
+                        <QuestionComponent
+                            key={`survey-${location}-${type}-${index}`}
+                            question={question}
+                            value={response ? response[index][location] : type === "objective" ? 0 : ""}
+                            onChange={value => {
+                                editResponse();
+                                const newResponse = produce(
+                                    response,
+                                    response => {
+                                        response[index][location] = value;
+                                    }
+                                );
+                                updateResponse(newResponse, student);
+                            }}
+                        />
                     );
                 })}
             </ol>

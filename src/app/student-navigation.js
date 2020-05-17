@@ -112,7 +112,7 @@ const StudentNavigation = ({
                 </Grid>
                 <Grid item xs={12} sm={2}>
                     <StudentButton disabled={!shouldSaveResponse} onClick={saveResponse} className={isSaving && classes.saveButton}>
-                        {!isSaving ? "Save Response" : 
+                        {!isSaving ? "Save Response" :
                          <>
                              <CircularProgress size={16} className={classes.saveProgress} />
                              Saving...
