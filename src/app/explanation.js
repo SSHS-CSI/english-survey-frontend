@@ -12,6 +12,13 @@ const Typography = require("@material-ui/core/Typography").default;
 const useStyles = makeStyles(theme => ({
     explanationContainer: {
         marginTop: theme.spacing(2)
+    },
+    box: {
+        border: "1px solid black",
+        margin: "10px",
+        padding: "15px",
+        width: "70%",
+        fontSize: "15px",
     }
 }));
 
@@ -23,7 +30,7 @@ const Explanation = () => {
             <Card>
                 <CardContent>
                     <Typography variant="body1" gutterBottom>
-                        You will hear Korean second language learners of English speaking on a narrative description task. Students were asked to narrate nine-frame pictures making a single coherent story. The task was administered and audiotaped at Time 1 and again 13 weeks later at Time 2. The two excerpts were randomly paired across time (T1/T2 or T2/T1) in a single aural stimulus, separated by a tone.
+                       - You will hear 30 male Korean second language learners of English speaking on a narrative description task. Students were asked to narrate nine-frame pictures making a single story. The task was administered and recorded at Time 1 and again 13 weeks later at Time 2. The two excerpts were <span style={{ color: "rgb(255,0,0)"}}>randomly</span> paired.
                     </Typography>
                     <img src="/static/ex.jpg" style={{
                         float: "right",
@@ -31,23 +38,20 @@ const Explanation = () => {
                         maxWidth: 320
                     }}></img>
                     <Typography variant="body1" gutterBottom>
-                        All of the speech samples are about one minute long. I would like you to make a fluency judgment about each paired sample.
+                       - All of the speech samples are about one minute long. I would like you to <span style={{ color: "rgb(255,0,0)"}}>judge the degree of fluency</span> about each paired sample.
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                        Speaking fluency is commonly associated with temporal fluency: 1. speech rate, 2. hesitation phenomena (① numbers and length of unfilled or non-lexical filled pauses such as ah-, uhm-, uh-, ② repetitions, ③ self-corrections), and 3. formulaic sequences or ‘chunks.’
+                       - <span style={{ color: "rgb(255,0,0)"}}>Speaking fluency</span>: the flow of the language – does the speaker have problems finding words, hesitating and pausing often, or do the words come quickly? So a speaker who is very fluent – that is, the words just flow with no struggle, would be at the top of the scale(7), while someone who has a hard time expressing him or herself would be closer to the right end of the scale(1). 
                     </Typography>
+                    <div className={classes.box}>
+                        <div style={{ textAlign: "center"}}>How to Judge Fluency?</div>
+                        <p>1. <span style={{ color: "rgb(255,0,0)"}}>speech rate</span></p>
+                        <p>2. <span style={{ color: "rgb(255,0,0)"}}>hesitation</span> (① numbers and length of unfilled or non-lexical filled pauses such as ah-, uhm-, uh-, ② repetitions, ③ self-corrections)</p>
+                        <p>3. <span style={{ color: "rgb(255,0,0)"}}>formulaic sequences or ‘chunks.’</span></p>
+                    </div>
                     <Typography variant="body1" gutterBottom>
-                        Speaking fluency is the flow of the language – does the speaker have problems finding words, hesitating and pausing often, or do the words come quickly? So a speaker who is very fluent – that is, the words just flow with no struggle, would be at the top of the scale, while someone who has a hard time expressing him or herself would be closer to the right end of the scale. Please do not worry about grammar mistakes – that does not matter.
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                        As you listened to the paired stimuli, please first write in words, in the space provided below the scale, your general impressions of the temporal fluency of each speech sample in the pair.
+                        - Using the <span style={{ color: "rgb(255,0,0)"}}>7-point scale</span>, give each speaker a rating based on their speaking fluency. <span style={{ color: "rgb(255,0,0)"}}>Please assign a different rating to each member of a paired speech sample;</span> in other words, you are asked to rate one member of each pair of stimuli as more fluent than the other.
                     </Typography> 
-                    <Typography variant="body1" gutterBottom>
-                        Then, using the 7-point scale, give each speaker a rating based on their speaking fluency. Please assign a different rating to each member of a paired speech sample; in other words, you are asked to rate one member of each pair of stimuli as more fluent than the other.
-                    </Typography>
-                    <Typography variant="body1">
-                        Please listen to the whole sample before making your decision.
-                    </Typography>
                 </CardContent>
                 <CardActions>
                     <Button variant="contained" color="primary" onClick={() => history.push("/")}>I understood.</Button>

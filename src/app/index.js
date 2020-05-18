@@ -37,6 +37,14 @@ const {
 const useStyles = makeStyles({
     title: {
         flexGrow: 1
+    },
+    box: {
+        border: "1px solid black",
+        margin: "20px",
+        marginLeft: "10%",
+        padding: "15px",
+        width: "60%",
+        fontSize: "15px",
     }
 });
 
@@ -78,6 +86,20 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                     <Route path="/">
                         <Questions />
                         <StudentNavigation />
+                        <div className={classes.box}>
+                            <div style={{ textAlign: "center"}}>How to Judge Fluency?</div>
+                            <p>1. <span style={{ color: "rgb(255,0,0)"}}>speech rate</span></p>
+                            <p>2. <span style={{ color: "rgb(255,0,0)"}}>hesitation</span> (① numbers and length of unfilled or non-lexical filled pauses such as ah-, uhm-, uh-, ② repetitions, ③ self-corrections)</p>
+                            <p>3. <span style={{ color: "rgb(255,0,0)"}}>formulaic sequences or ‘chunks.’</span></p>
+                            
+                        </div>
+                        <img src="/static/ex.jpg" style={{
+                            float: "right",
+                            width: "100%",
+                            maxWidth: 320,
+                            marginTop: "-210px",
+                            marginRight: "80px",
+                        }}></img>
                     </Route>
                 </Switch>
             </BlockUi>
