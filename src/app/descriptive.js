@@ -27,6 +27,7 @@ function Descriptive({ question, value, onChange }) {
                 <TextField
                     multiline
                     fullWidth
+                    rows={5}
                     value={value}
                     onChange={e => onChange(e.target.value)}
                     className={classes.textField}
