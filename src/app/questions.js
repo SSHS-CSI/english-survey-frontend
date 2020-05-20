@@ -24,14 +24,15 @@ const Questions = ({ fetchResponse }) => {
     const history = useHistory();
     useEffect(() => fetchResponse(history), []);
     const classes = useStyles();
+    const locations = (Math.random() > 0.5) ? ["left", "right"] : ["right", "left"];
     return (
         <Container className={classes.surveyContainer}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
-                    <Survey location="left" />
+                    <Survey location={locations[0]} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <Survey location="right" />
+                    <Survey location={locations[1]} />
                 </Grid>
             </Grid>
         </Container>
