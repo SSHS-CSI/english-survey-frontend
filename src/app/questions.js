@@ -1,5 +1,6 @@
 const React = require("react");
-const { useEffect } = React;
+
+const { useState, useEffect } = React;
 const { connect } = require("react-redux");
 const { useHistory } = require("react-router-dom");
 const { makeStyles } = require("@material-ui/core/styles");
@@ -24,7 +25,8 @@ const Questions = ({ fetchResponse }) => {
     const history = useHistory();
     useEffect(() => fetchResponse(history), []);
     const classes = useStyles();
-    const locations = (Math.random() > 0.5) ? ["left", "right"] : ["right", "left"];
+	let [random, setRandom] = useState(Math.random())
+    const locations = (random > 0.5) ? ["left", "right"] : ["right", "left"];
     return (
         <Container className={classes.surveyContainer}>
             <Grid container spacing={2}>
