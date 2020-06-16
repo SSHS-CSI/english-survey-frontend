@@ -21,12 +21,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const Questions = ({ fetchResponse }) => {
+let randomNums = [];
+
+const Questions = ({ student, studentCount, fetchResponse }) => {
     const history = useHistory();
     useEffect(() => fetchResponse(history), []);
     const classes = useStyles();
-	let [random, setRandom] = useState(Math.random())
-    const locations = (random > 0.5) ? ["left", "right"] : ["right", "left"];
+    if (randomNums.length == 0) {
+        for (let i = 0; i < studentCount; i++) {
+            randomNums.push(Math.random());
+        }
+    }
+    const locations = (randomNums[student] > 0.5) ? ["left", "right"] : ["right", "left"];
     return (
         <Container className={classes.surveyContainer}>
             <Grid container spacing={2}>
@@ -43,6 +49,7 @@ const Questions = ({ fetchResponse }) => {
 
 const mapStateToProps = state => ({
     student: state.student,
+    studentCount: state.fetch.count,
     responses: state.responses,
 });
 
