@@ -87,11 +87,9 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                         <Questions />
                         <StudentNavigation />
                         <div className={classes.box}>
-                            <div style={{ textAlign: "center"}}>How to Judge Fluency?</div>
-                            <p>1. <span style={{ color: "rgb(255,0,0)"}}>speech rate</span></p>
-                            <p>2. <span style={{ color: "rgb(255,0,0)"}}>hesitation</span> (① numbers and length of unfilled or non-lexical filled pauses such as ah-, uhm-, uh-, ② repetitions, ③ self-corrections)</p>
-                            <p>3. <span style={{ color: "rgb(255,0,0)"}}>formulaic sequences or ‘chunks.’</span></p>
-                            
+                            <div style={{ textAlign: "center"}}>How to Judge Comprehensibility?</div>
+                            <p>1. Incomprehensible speech means that the speaker to whom you listened to was hard to understand / required a lot of effort to understand / made it difficult to grasp the meaning / was unclear in the given context.</p>
+                            <p>2. If the speech was clear / easy to understand / required little effort to understand / made it simple to grasp the meaning, the speaker is highly comprehensible.</p>
                         </div>
                         <img src="/static/ex.jpg" style={{
                             float: "right",
@@ -100,6 +98,12 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                             marginTop: "-210px",
                             marginRight: "80px",
                         }}></img>
+                        <div className={classes.box}>
+                            <div style={{ textAlign: "center"}}>How to Judge Fluency?</div>
+                            <p>1. <span style={{ color: "rgb(255,0,0)"}}>speech rate</span></p>
+                            <p>2. <span style={{ color: "rgb(255,0,0)"}}>hesitation</span> (① numbers and length of unfilled or non-lexical filled pauses such as ah-, uhm-, uh-, ② repetitions, ③ self-corrections)</p>
+                            <p>3. <span style={{ color: "rgb(255,0,0)"}}>formulaic sequences or ‘chunks.’</span></p>
+                        </div>
                     </Route>
                 </Switch>
             </BlockUi>

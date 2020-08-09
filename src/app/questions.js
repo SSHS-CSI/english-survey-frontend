@@ -25,7 +25,7 @@ const Questions = ({ fetchResponse }) => {
     const history = useHistory();
     useEffect(() => fetchResponse(history), []);
     const classes = useStyles();
-	let [random, setRandom] = useState(Math.random())
+	let [random, setRandom] = useState(Math.random());
     const locations = (random > 0.5) ? ["left", "right"] : ["right", "left"];
     return (
         <Container className={classes.surveyContainer}>
