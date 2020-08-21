@@ -87,9 +87,11 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                         <Questions />
                         <StudentNavigation />
                         <div className={classes.box}>
-                            <div style={{ textAlign: "center"}}>How to Judge Comprehensibility?</div>
-                            <p>1. Incomprehensible speech means that the speaker to whom you listened to was hard to understand / required a lot of effort to understand / made it difficult to grasp the meaning / was unclear in the given context.</p>
-                            <p>2. If the speech was clear / easy to understand / required little effort to understand / made it simple to grasp the meaning, the speaker is highly comprehensible.</p>
+                            <div style={{ textAlign: "center"}}>How to Judge Overall Speaking Proficiency?</div>
+                            <p>The rating reflects judgments about the following: </p>
+                            <p>1. <span style={{ color: "rgb(255,0,0)"}}>Topic development</span></p>
+                            <p>2. <span style={{ color: "rgb(255,0,0)"}}>Delivery</span>, which includes pronunciation, intonation, pacing, and general intelligibility</p>
+                            <p>3. <span style={{ color: "rgb(255,0,0)"}}>Language use</span>, which includes pronunciation, intonation, pacing, and general intelligibility</p>
                         </div>
                         <img src="/static/ex.jpg" style={{
                             float: "right",
