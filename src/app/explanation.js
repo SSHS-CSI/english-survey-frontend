@@ -39,10 +39,10 @@ const Explanation = () => {
                         margin: "20px",
                     }}></img>
                     <Typography variant="body1" gutterBottom>
-                        - All of the speech samples are about one minute long. I would like you to <span style={{ color: "rgb(255,0,0)"}}>judge overall speaking proficiency</span> and <span style={{ color: "rgb(255,0,0)"}}>fluency</span> about each paired sample.
+                        - All of the speech samples are about one minute long. I would like you to <span style={{ color: "rgb(255,0,0)"}}>judge overall speaking proficiency and fluency</span> about each paired sample.
                     </Typography>
                     <Typography variant="body1" gutterBottom>
-                        - <span style={{ color: "rgb(255,0,0)"}}>Overall speaking proficiency:</span> Holistic speaking proficiency rating are provided using the same rubric employed by ETS raters in scoring TOEFL iBT. The rating rubric allowed for scores from 1(limited proficient) to 7(highly proficient)
+                        - <span style={{ color: "rgb(255,0,0)"}}>Overall speaking proficiency:</span> You are asked to rate overall speaking proficiency using the same rubric employed by ETS raters in scoring TOEFL iBT. The rating rubric allowed for scores from 1(limited proficient) to 7(highly proficient)
                     </Typography>
                     <div className={classes.box}>
                         <div style={{ textAlign: "center"}}>How to Judge Overall Speaking Proficiency?</div>
@@ -61,7 +61,7 @@ const Explanation = () => {
                         <p>3. <span style={{ color: "rgb(255,0,0)"}}>formulaic sequences or ‘chunks.’</span></p>
                     </div>
                     <Typography variant="body1" gutterBottom>
-                        - Using the <span style={{ color: "rgb(255,0,0)"}}>7-point scale</span>, give each speaker a rating based on their speaking fluency. <span style={{ color: "rgb(255,0,0)"}}>Please assign a different rating to each member of a paired speech sample</span>; in other words, you are asked to rate one member of each pair of stimuli as more fluent than the other.
+                        - Using the 7-point scale, give each speaker a rating based on their speaking proficiency or fluency. <span style={{ color: "rgb(255,0,0)"}}>Please assign a different rating to each member of a paired speech sample</span>; in other words, you are asked to rate one member of each pair of stimuli as more proficient or fluent than the other.
                     </Typography> 
                 </CardContent>
                 <CardActions>
