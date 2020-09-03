@@ -74,6 +74,19 @@ const StudentNavigation = ({
         setIsSaving(false);
     };
 
+    let navigationString, color;
+    if (student === studentCount - 1) {
+        navigationString = "Finish Survey!";
+        color = "primary";
+    } else if (student === 2) {
+        navigationString = "Start Survey";
+        color = "primary";
+    } else {
+        navigationString = "Next Student";
+        color = "default";
+    }
+    
+
     useInterval(saveResponse, 6000);
 
     return (
@@ -92,8 +105,9 @@ const StudentNavigation = ({
                             prevStudent({ student, responses });
                         }}
                         disabled={student === 0}
+                        color={student === 3 ? "primary" : "default"}
                     >
-                        Previous Student
+                        {student === 3 ? "Return to Sample" : "Previous Student"}
                     </StudentButton>
                 </Grid>
                 <Grid item xs={12} sm={4}>
@@ -106,8 +120,9 @@ const StudentNavigation = ({
                                 nextStudent({ student, responses });
                             }
                         }}
+                        color={color}
                     >
-                        {student === studentCount - 1 ? "Finish Survey!" : "Next Student"}
+                        {navigationString}
                     </StudentButton>
                 </Grid>
                 <Grid item xs={12} sm={2}>
