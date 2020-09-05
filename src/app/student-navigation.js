@@ -40,7 +40,8 @@ const StudentNavigation = ({
     prevStudent,
     responses,
     shouldSaveResponse,
-    dispatchSaveResponse
+    dispatchSaveResponse,
+    setRandom
 }) => {
     const classes = useStyles();
     const history = useHistory();
@@ -118,6 +119,7 @@ const StudentNavigation = ({
                                 setIsSnackbarOpen(true);
                             } else {
                                 nextStudent({ student, responses });
+                                setRandom(Math.random());
                             }
                         }}
                         color={color}

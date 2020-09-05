@@ -1,4 +1,5 @@
 const React = require("react");
+const { useState } = React;
 const { useEffect } = React;
 const { connect } = require("react-redux");
 const {
@@ -52,6 +53,7 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
     const classes = useStyles();
     useEffect(fetchData, []);
     const history = useHistory();
+    let [random, setRandom] = useState(Math.random());
     return (
         <>
             <CssBaseline />
@@ -84,8 +86,8 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                         <SignUp />
                     </Route>
                     <Route path="/">
-                        <Questions />
-                        <StudentNavigation />
+                        <Questions random={random} />
+                        <StudentNavigation setRandom={setRandom} />
                     </Route>
                 </Switch>
             </BlockUi>
