@@ -49,11 +49,11 @@ const useStyles = makeStyles({
     }
 });
 
-const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
+const App = ({ studentCount, isLoading, fetchData, isAuthorized, logoutSuccess }) => {
     const classes = useStyles();
     useEffect(fetchData, []);
     const history = useHistory();
-    let [random, setRandom] = useState(Math.random());
+    let random = new Array(30).fill().map(() => Math.random());
     return (
         <>
             <CssBaseline />
@@ -87,7 +87,7 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
                     </Route>
                     <Route path="/">
                         <Questions random={random} />
-                        <StudentNavigation setRandom={setRandom} />
+                        <StudentNavigation />
                     </Route>
                 </Switch>
             </BlockUi>
@@ -96,8 +96,7 @@ const App = ({ isLoading, fetchData, isAuthorized, logoutSuccess }) => {
 };
 
 const mapStateToProps = state => ({
-    student: state.student,
-    responses: state.responses,
+    studentCount: state.studentCount,
     isLoading: state.fetch.loadingStudentCount || state.fetch.loadingQuestions,
     isAuthorized: state.isAuthorized
 });
