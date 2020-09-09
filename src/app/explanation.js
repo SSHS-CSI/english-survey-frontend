@@ -30,7 +30,7 @@ const Explanation = () => {
             <Card>
                 <CardContent>
                     <Typography variant="body1" gutterBottom>
-                        - You will hear 28 male Korean second language learners of English speaking on a narrative description task. Students were asked to narrate nine-frame pictures making a single story. The task was administered and recorded at Time 1 and again 13 weeks later at Time 2. The two excerpts were <span style={{ color: "rgb(255,0,0)" }}>randomly</span> paired.
+                        - You will hear 27 male Korean second language learners of English speaking on a narrative description task. Students were asked to narrate nine-frame pictures making a single story. The task was administered and recorded at Time 1 and again 13 weeks later at Time 2. The two excerpts were <span style={{ color: "rgb(255,0,0)" }}>randomly</span> paired.
                     </Typography>
                     <br></br>
                     <br></br>
