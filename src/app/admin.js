@@ -98,6 +98,15 @@ function Admin() {
             >
                 Id Generate
             </Button>
+            <Button
+                color="primary"
+                variant="contained"
+                href="/master/excel?type=1"
+                target="_blank"
+                className={classes.button}
+            >
+                Download Excel
+            </Button>
             <List className={classes.idList}>
                 {idList.map((id, index) => (
                     <ListItem button key={id} onClick={() => copyToClipBoard(id)}>
