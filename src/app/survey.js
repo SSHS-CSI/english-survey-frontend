@@ -46,7 +46,7 @@ const Survey = ({ questions, response, location, student, updateResponse, editRe
             <ol className={classes.orderedList}>
                 <audio
                     controls
-                    src={`/static/audio/student.${student + 1}.${location[student] ? "pre" : "post"}.m4a`}>
+                    src={`/static/audio/student.${student + 1}.${location == "left" ? "pre" : "post"}.m4a`}>
                 </audio>
                 {questions.map(({ type, ...question }, index) => {
                     const QuestionComponent =
