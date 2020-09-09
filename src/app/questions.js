@@ -27,7 +27,12 @@ const Questions = ({ student, studentCount, fetchResponse, random }) => {
     const history = useHistory();
     useEffect(() => fetchResponse(history), []);
     const classes = useStyles();
-    let locations = (random > 0.5) ? ["left", "right"] : ["right", "left"];
+    if (randomNums.length == 0) {
+        for (let i = 0; i < studentCount; i++) {
+            randomNums.push(Math.random());
+        }
+    }
+    const locations = (randomNums[student] > 0.5) ? ["left", "right"] : ["right", "left"];
     return (
         <Container className={classes.surveyContainer}>
             <Grid container spacing={2}>
